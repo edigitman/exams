@@ -41,31 +41,6 @@ public class UserService extends AbstractService<EUser> implements IUserService 
 	@Override
 	@Transactional(readOnly = true)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public void createNewUser(UserVO userVO) {
-		EUser user = parseVO(userVO);
-		user.setToken(String.valueOf(UUID.randomUUID().getMostSignificantBits()));
-
-		// TODO send email
-		create(user);
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public EUser updateUser(UserVO userVO) {
-		EUser dbUser = retrieveByEmail(userVO.getEmail());
-		if (dbUser != null) {
-			// update properties
-
-			update(dbUser);
-			return dbUser;
-		}
-		return null;
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public EUser create(EUser entity) {
 		return super.create(entity);
 	}
@@ -89,15 +64,5 @@ public class UserService extends AbstractService<EUser> implements IUserService 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deleteById(long entityId) {
 		super.deleteById(entityId);
-	}
-
-	// Local methods
-	private EUser parseVO(UserVO userVO) {
-		EUser user = new EUser();
-		user.setName(userVO.getName());
-		user.setLastname(userVO.getLastName());
-		user.setEmail(userVO.getEmail());
-		user.setRole(userVO.getRole());
-		return user;
-	}
+	}	
 }

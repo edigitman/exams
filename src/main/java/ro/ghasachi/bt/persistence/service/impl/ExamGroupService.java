@@ -5,24 +5,24 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ro.ghasachi.bt.persistence.dao.IExamDao;
-import ro.ghasachi.bt.persistence.model.Exam;
-import ro.ghasachi.bt.persistence.service.IExamService;
+import ro.ghasachi.bt.persistence.dao.IExamGroupDao;
+import ro.ghasachi.bt.persistence.model.ExamGroup;
+import ro.ghasachi.bt.persistence.service.IExamGroupService;
 import ro.ghasachi.bt.persistence.service.common.AbstractService;
 
 @Service
 @Transactional
-public class ExamService extends AbstractService<Exam> implements IExamService{
+public class ExamGroupService extends AbstractService<ExamGroup> implements IExamGroupService {
 
 	@Autowired
-    private IExamDao dao;
+	private IExamGroupDao dao;
 
-    public ExamService() {
-        super();
-    }
-	
+	public ExamGroupService() {
+		super();
+	}
+
 	@Override
-	protected PagingAndSortingRepository<Exam, Long> getDao() {
+	protected PagingAndSortingRepository<ExamGroup, Long> getDao() {
 		return dao;
 	}
 

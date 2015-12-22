@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import ro.ghasachi.bt.persistence.service.IExamService;
+import ro.ghasachi.bt.web.middleware.ProfService;
 import ro.ghasachi.bt.web.vo.ExamGroupVO;
 import ro.ghasachi.bt.web.vo.ExamInstanceVO;
 import ro.ghasachi.bt.web.vo.ExamItemAnswerVO;
@@ -28,7 +28,7 @@ public class ProfController {
 	private final static Logger log = LoggerFactory.getLogger(ProfController.class);
 	
 	@Autowired
-	private IExamService examService;
+	private ProfService service ;
 
 	// EXAM resources
 

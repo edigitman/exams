@@ -1,5 +1,7 @@
 package ro.ghasachi.bt.web.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import ro.ghasachi.bt.persistence.model.EUser;
-import ro.ghasachi.bt.persistence.service.IUserService;
+import ro.ghasachi.bt.web.middleware.AdminService;
 import ro.ghasachi.bt.web.vo.UserVO;
 
 
@@ -21,19 +23,23 @@ import ro.ghasachi.bt.web.vo.UserVO;
 @RequestMapping(value = "/admin")
 public class AdminController {
 
+	private final static Logger log = LoggerFactory.getLogger(AdminController.class);
+	
     @Autowired
-    private IUserService userService;
+    private AdminService service;
 
     @RequestMapping(consumes = "application/json", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void createUser(@RequestBody UserVO userVO){
-        userService.createNewUser(userVO);
+    	log.debug("createUser:" + userVO);
+    	service.createNewUser(userVO);
     }
 
     @RequestMapping(consumes = "application/json", method = RequestMethod.PUT)
     @ResponseBody
     public EUser editUser(@RequestBody UserVO userVO){
-        return userService.updateUser(userVO);
+    	log.debug("editUser:" + userVO);
+        return service.updateUser(userVO);
     }
     
 }
