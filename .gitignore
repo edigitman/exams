@@ -2,6 +2,7 @@
 
 #folders#
 /.idea
+/.settings
 /target
 /neoDb*
 /data
@@ -9,6 +10,8 @@
 */META-INF/*
 
 # Packaged files #
+.classpath
+.project
 *.jar
 *.war
 *.ear
