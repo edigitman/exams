@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import ro.ghasachi.bt.persistence.model.EUser;
 import ro.ghasachi.bt.web.middleware.AdminService;
+import ro.ghasachi.bt.web.util.ControllerInputValidator;
 import ro.ghasachi.bt.web.vo.UserVO;
 
 
@@ -32,6 +33,9 @@ public class AdminController {
     @ResponseStatus(value = HttpStatus.OK)
     public void createUser(@RequestBody UserVO userVO){
     	log.debug("createUser:" + userVO);
+    	
+    	ControllerInputValidator.validateCreateUser(userVO);
+    	
     	service.createNewUser(userVO);
     }
 
@@ -39,6 +43,9 @@ public class AdminController {
     @ResponseBody
     public EUser editUser(@RequestBody UserVO userVO){
     	log.debug("editUser:" + userVO);
+    	
+    	ControllerInputValidator.validateCreateUser(userVO);
+    	
         return service.updateUser(userVO);
     }
     

@@ -17,18 +17,18 @@ public class AdminServiceImpl implements AdminService {
 	private IUserService iUserServce;
 
 	@Override
-	public void createNewUser(UserVO userVO) {
+	public void createNewUser(final UserVO userVO) {
 		EUser user = parseVO(userVO);
-		user.setToken(String.valueOf(UUID.randomUUID().getMostSignificantBits()));
+		user.setToken(String.valueOf(UUID.randomUUID()));
 
 		// TODO send email
 		iUserServce.create(user);
 	}
 
 	@Override
-	public EUser updateUser(UserVO userVO) {
+	public EUser updateUser(final UserVO userVO) {
 
-		EUser dbUser = iUserServce.retrieveByEmail(userVO.getEmail());
+		EUser dbUser = iUserServce.findByEmail(userVO.getEmail());
 		if (dbUser != null) {
 			// update properties
 
@@ -40,13 +40,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	// Local methods
-	
+
 	private EUser parseVO(UserVO userVO) {
-		EUser user = new EUser();
-		user.setName(userVO.getName());
-		user.setLastname(userVO.getLastName());
-		user.setEmail(userVO.getEmail());
-		user.setRole(userVO.getRole());
-		return user;
+		return new EUser.Builder().name(userVO.getName()).lastname(userVO.getLastName()).email(userVO.getEmail())
+				.role(userVO.getRole()).build();
 	}
 }

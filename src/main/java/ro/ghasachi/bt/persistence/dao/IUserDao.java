@@ -12,6 +12,8 @@ import ro.ghasachi.bt.persistence.model.EUser;
 public interface IUserDao extends JpaRepository<EUser, Long>, JpaSpecificationExecutor<EUser> {
 
     @Query("SELECT u FROM EUser u WHERE u.email = :email")
-    EUser retrieveByEmail(@Param("email") String email);
+    EUser findByEmail(@Param("email") String email);
 
+    @Query("SELECT u FROM EUser u WHERE u.token = :token")
+    EUser findByToken(@Param("token") String token);    
 }

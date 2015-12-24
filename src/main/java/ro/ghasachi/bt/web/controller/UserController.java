@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ro.ghasachi.bt.web.middleware.UserService;
+import ro.ghasachi.bt.web.util.ControllerInputValidator;
 import ro.ghasachi.bt.web.vo.UserVO;
 
 @Controller
@@ -21,43 +22,56 @@ import ro.ghasachi.bt.web.vo.UserVO;
 public class UserController {
 
 	private final static Logger log = LoggerFactory.getLogger(UserController.class);
-	
+
 	@Autowired
 	private UserService service;
-	
+
 	/**
 	 * Just a model how to set a cookie
+	 * 
 	 * @param token
 	 * @return
 	 */
-	@SuppressWarnings("unused")
-	private ResponseEntity<UserVO> getAuth(@PathVariable("token") String token){
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Set-Cookie","heroku-nav-data=");
-        return new ResponseEntity<UserVO>(new UserVO(),headers,HttpStatus.OK);	
-	}
-	
+//	@SuppressWarnings("unused")
+//	private ResponseEntity<UserVO> getAuth(@PathVariable("token") String token) {
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add("Set-Cookie", "heroku-nav-data=");
+//		return new ResponseEntity<UserVO>(new UserVO(), headers, HttpStatus.OK);
+//	}
+
 	/**
 	 * Get a user by token
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "t/{token}", method = RequestMethod.GET)
 	@ResponseBody
-	public UserVO getByToken(@PathVariable("token") String token){
+	public UserVO getByToken(@PathVariable("token") String token) {
 		log.debug("getByToken: " + token);
-		return null;
+
+//		ControllerInputValidator.validateToken(token);
+
+		return service.getByToken(token);
 	}
-	
+
 	/**
 	 * Create a password for user, given the token and email
+	 * 
 	 * @param userVO
 	 * @return
 	 */
 	@RequestMapping(value = "pass", method = RequestMethod.POST)
 	@ResponseBody
-	public UserVO createPassword(@RequestBody UserVO userVO){
+	public UserVO createPassword(@RequestBody UserVO userVO) {
 		log.debug("createPassword: " + userVO);
-		return null;
+
+		ControllerInputValidator.validateUserCreatePassword(userVO);
+
+		service.createPassword(userVO);
+		
+		userVO.setPassword(null);
+		
+		return userVO;
 	}
-	
+
 }

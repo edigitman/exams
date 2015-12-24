@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Created by edi on 12/19/2015.
@@ -138,5 +139,55 @@ public class EUser extends BaseEntity {
 	public String toString() {
 		return "EUser{" + "id=" + id + ", name='" + name + '\'' + ", lastname='" + lastname + '\'' + ", email='" + email
 				+ '\'' + ", token='" + token + '\'' + ", password='" + password + '\'' + '}';
+	}
+	
+	public static class Builder {
+		private String name;
+		private String lastname;
+		private String email;
+		private String token;
+		private String password;
+		private String role;
+
+		public Builder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder lastname(String lastname) {
+			this.lastname = lastname;
+			return this;
+		}
+
+		public Builder email(String email) {
+			this.email = email;
+			return this;
+		}
+
+		public Builder token(String token) {
+			this.token = token;
+			return this;
+		}
+
+		public Builder password(String password) {
+			this.password = password;
+			return this;
+		}
+
+		public Builder role(String role) {
+			this.role = role;
+			return this;
+		}
+
+		public EUser build() {
+			EUser eUser = new EUser();
+			eUser.name = name;
+			eUser.lastname = lastname;
+			eUser.email = email;
+			eUser.token = token;
+			eUser.password = password;
+			eUser.role = role;
+			return eUser;
+		}
 	}
 }

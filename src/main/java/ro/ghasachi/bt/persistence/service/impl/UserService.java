@@ -1,7 +1,5 @@
 package ro.ghasachi.bt.persistence.service.impl;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +10,6 @@ import ro.ghasachi.bt.persistence.dao.IUserDao;
 import ro.ghasachi.bt.persistence.model.EUser;
 import ro.ghasachi.bt.persistence.service.IUserService;
 import ro.ghasachi.bt.persistence.service.common.AbstractService;
-import ro.ghasachi.bt.web.vo.UserVO;
 
 /**
  * Created by edi on 12/19/2015.
@@ -34,10 +31,16 @@ public class UserService extends AbstractService<EUser> implements IUserService 
 	}
 
 	@Override
-	public EUser retrieveByEmail(String email) {
-		return dao.retrieveByEmail(email);
+	public EUser findByEmail(String email) {
+		return dao.findByEmail(email);
 	}
 
+	@Override
+	public EUser findByToken(String token) {
+		return dao.findByToken(token);
+	}
+	
+	
 	@Override
 	@Transactional(readOnly = true)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -45,12 +48,12 @@ public class UserService extends AbstractService<EUser> implements IUserService 
 		return super.create(entity);
 	}
 
-	@Override
-	@Transactional(readOnly = true)
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public EUser update(EUser entity) {
-		return super.update(entity);
-	}
+//	@Override
+//	@Transactional(readOnly = true)
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")
+//	public EUser update(EUser entity) {
+//		return super.update(entity);
+//	}
 
 	@Override
 	@Transactional(readOnly = true)
@@ -64,5 +67,5 @@ public class UserService extends AbstractService<EUser> implements IUserService 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deleteById(long entityId) {
 		super.deleteById(entityId);
-	}	
+	}
 }

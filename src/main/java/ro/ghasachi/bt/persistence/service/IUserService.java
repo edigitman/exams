@@ -8,6 +8,8 @@ import ro.ghasachi.bt.persistence.model.EUser;
  */
 public interface IUserService extends IOperations<EUser> {
 
-    EUser retrieveByEmail(String email);
+    EUser findByEmail(String email);
+
+	EUser findByToken(String token);
     
 }

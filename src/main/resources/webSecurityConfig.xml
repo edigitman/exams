@@ -12,8 +12,9 @@
     <http pattern="/securityNone" security="none" />
 
     <http use-expressions="true">
-        <intercept-url pattern="/**" access="isAuthenticated()" />
-
+        <intercept-url pattern="/admin" access="isAuthenticated()" />
+		<intercept-url pattern="/admin/**"/>
+		
         <http-basic />
 
     </http>

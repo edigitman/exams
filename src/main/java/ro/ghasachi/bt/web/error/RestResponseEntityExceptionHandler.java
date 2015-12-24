@@ -2,7 +2,6 @@ package ro.ghasachi.bt.web.error;
 
 import javax.persistence.EntityNotFoundException;
 
-import ro.ghasachi.bt.web.exception.MyResourceNotFoundException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,6 +15,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import ro.ghasachi.bt.web.exception.MyArgumentIllegalException;
+import ro.ghasachi.bt.web.exception.MyResourceNotFoundException;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -53,6 +55,12 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.BAD_REQUEST, request);
     }
 
+    @ExceptionHandler(value = { MyArgumentIllegalException.class })
+    protected ResponseEntity<Object> handleMyMethodArgumentNotValid(final RuntimeException ex, final WebRequest request) {
+        final String bodyOfResponse = "MyArgumentIllegalException: " + ex.getMessage();
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+        
     // 403
 
     // 404

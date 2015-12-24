@@ -1,47 +1,74 @@
 package ro.ghasachi.bt.web.vo;
 
+import ro.ghasachi.bt.persistence.model.EUser;
+
 /**
  * Created by edi on 12/19/2015.
  */
 public class UserVO {
 
-    private String name;
-    private String lastName;
-    private String email;
-    private String role;
+	private String name;
+	private String lastName;
+	private String email;
+	private String role;
+	private String password;
+	private String token;
 
-    public UserVO() {
-    }
+	public UserVO() {
+	}
 
-    public String getName() {
-        return name;
-    }
+	public UserVO(EUser user) {
+		this.name = user.getName();
+		this.lastName = user.getLastname();
+		this.email = user.getEmail();
+		this.role = user.getRole();
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getRole() {
-        return role;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 }
