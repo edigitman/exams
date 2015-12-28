@@ -3,11 +3,7 @@ package ro.ghasachi.bt.web.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,21 +34,6 @@ public class UserController {
 //		headers.add("Set-Cookie", "heroku-nav-data=");
 //		return new ResponseEntity<UserVO>(new UserVO(), headers, HttpStatus.OK);
 //	}
-
-	/**
-	 * Get a user by token
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "t/{token}", method = RequestMethod.GET)
-	@ResponseBody
-	public UserVO getByToken(@PathVariable("token") String token) {
-		log.debug("getByToken: " + token);
-
-//		ControllerInputValidator.validateToken(token);
-
-		return service.getByToken(token);
-	}
 
 	/**
 	 * Create a password for user, given the token and email

@@ -2,7 +2,8 @@ package ro.ghasachi.bt.web.vo;
 
 import java.util.Date;
 
-import ro.ghasachi.bt.persistence.model.ExamInstance;
+import ro.ghasachi.bt.persistence.tables.pojos.Examinstance;
+
 
 public class ExamInstanceVO {
 
@@ -14,10 +15,10 @@ public class ExamInstanceVO {
 	public ExamInstanceVO() {
 	}
 
-	public ExamInstanceVO(ExamInstance instance) {
+	public ExamInstanceVO(Examinstance instance) {
 		this.name = instance.getName();
-		this.startDate = instance.getStartDate();
-		this.endDate = instance.getEndDate();
+		this.startDate = instance.getStartdate();
+		this.endDate = instance.getEnddate();
 		this.status = instance.getStatus();
 	}
 

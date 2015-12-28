@@ -1,8 +1,18 @@
 package ro.ghasachi.bt.web.middleware.impl;
 
+import static ro.ghasachi.bt.persistence.tables.Examinstance.EXAMINSTANCE;
+import static ro.ghasachi.bt.persistence.tables.Studexaminstance.STUDEXAMINSTANCE;
+import static ro.ghasachi.bt.persistence.tables.User.USER;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jooq.DSLContext;
+import org.jooq.Record;
+import org.jooq.Record1;
+import org.jooq.Record2;
+import org.jooq.Result;
+import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -10,43 +20,42 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ro.ghasachi.bt.persistence.model.EUser;
-import ro.ghasachi.bt.persistence.model.ExamInstance;
-import ro.ghasachi.bt.persistence.service.IExamInstanceService;
-import ro.ghasachi.bt.persistence.service.IUserService;
+import ro.ghasachi.bt.persistence.tables.daos.ExaminstanceDao;
+import ro.ghasachi.bt.persistence.tables.daos.UserDao;
 import ro.ghasachi.bt.web.middleware.StudService;
 import ro.ghasachi.bt.web.vo.ExamInstanceVO;
 import ro.ghasachi.bt.web.vo.ExamItemVO;
-import ro.ghasachi.bt.web.vo.StudExamInstanceVO;
+import ro.ghasachi.bt.web.vo.StudExamInstanceVO;;
 
 @Service
 public class StudServiceImpl implements StudService {
 
 	@Autowired
-	private IExamInstanceService IExamInstanceService;
+	private ExaminstanceDao examinstanceDao;
 	@Autowired
-	private IUserService iUserService;
+	private UserDao userDao;
 
 	@Override
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_STUD')")
 	public List<ExamInstanceVO> getMyExams() {
+		List<ExamInstanceVO> result = new ArrayList<>();
 
 		// get the principal
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
 
-		// get the user
-		EUser stud = iUserService.findByEmail(name);
 
-		// get all the exams
-		List<ExamInstance> exams = IExamInstanceService.findForStudent(stud);
+		DSLContext jooq = DSL.using(userDao.configuration());
+		List<Record2<Long, String>> rs = jooq.select(EXAMINSTANCE.ID, EXAMINSTANCE.NAME)
+				.from(EXAMINSTANCE)
+				.join(STUDEXAMINSTANCE)
+				.on(EXAMINSTANCE.ID.equal(STUDEXAMINSTANCE.EXAMINSTANCE_ID))
+				.join(USER)
+				.on(STUDEXAMINSTANCE.STUDENT_ID.equal(USER.ID))
+				.where(USER.EMAIL.equal(name)).fetch();
 
-		// convert to VO
-		List<ExamInstanceVO> result = new ArrayList<>();
-		for (ExamInstance ei : exams) {
-			result.add(new ExamInstanceVO(ei));
-		}
+		//convert
 
 		return result;
 	}
@@ -55,22 +64,22 @@ public class StudServiceImpl implements StudService {
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_STUD')")
 	public ExamInstanceVO getOneExam(long id) {
-		
+
 		// get the principal
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
+		DSLContext jooq = DSL.using(userDao.configuration());
 
-		// get the user
-		EUser stud = iUserService.findByEmail(name);
-
-		// get all the exams
-		List<ExamInstance> exams = IExamInstanceService.findForStudent(stud);
-
-		for (ExamInstance ei : exams) {
-			if (ei.getId() == id) {
-				return new ExamInstanceVO(ei);
-			}
-		}
+		List<Record2<Long, String>> rs = jooq.select(EXAMINSTANCE.ID, EXAMINSTANCE.NAME)
+				.from(EXAMINSTANCE)
+				.join(STUDEXAMINSTANCE)
+				.on(EXAMINSTANCE.ID.equal(STUDEXAMINSTANCE.EXAMINSTANCE_ID))
+				.join(USER)
+				.on(STUDEXAMINSTANCE.STUDENT_ID.equal(USER.ID))
+				.where(USER.EMAIL.equal(name).and(EXAMINSTANCE.ID.equal(id)))
+				.fetch();
+		
+		
 		return null;
 	}
 
@@ -78,6 +87,18 @@ public class StudServiceImpl implements StudService {
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_STUD')")
 	public StudExamInstanceVO changeExamInstance(Long id, String state) {
+		// get the principal
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		
+		DSLContext jooq = DSL.using(userDao.configuration());
+		Result<Record1<Long>> rs = jooq.select(STUDEXAMINSTANCE.ID)
+				.from(STUDEXAMINSTANCE)
+				.join(USER)
+				.on(STUDEXAMINSTANCE.STUDENT_ID.equal(USER.ID))
+				.where(USER.EMAIL.equal(name))
+				.fetch();
+		
 		// TODO find exam instance for me
 		// TODO create or find StudExamInstance
 		// TODO change status (start or stop an exam)

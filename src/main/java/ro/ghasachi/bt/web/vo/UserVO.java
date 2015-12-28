@@ -1,6 +1,6 @@
 package ro.ghasachi.bt.web.vo;
 
-import ro.ghasachi.bt.persistence.model.EUser;
+import ro.ghasachi.bt.persistence.tables.pojos.User;
 
 /**
  * Created by edi on 12/19/2015.
@@ -17,7 +17,7 @@ public class UserVO {
 	public UserVO() {
 	}
 
-	public UserVO(EUser user) {
+	public UserVO(User user) {
 		this.name = user.getName();
 		this.lastName = user.getLastname();
 		this.email = user.getEmail();

@@ -1,5 +1,7 @@
 package ro.ghasachi.bt.web.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import ro.ghasachi.bt.persistence.model.EUser;
+import ro.ghasachi.bt.persistence.tables.pojos.User;
 import ro.ghasachi.bt.web.middleware.AdminService;
 import ro.ghasachi.bt.web.util.ControllerInputValidator;
 import ro.ghasachi.bt.web.vo.UserVO;
@@ -28,8 +30,8 @@ public class AdminController {
 	
     @Autowired
     private AdminService service;
-
-    @RequestMapping(consumes = "application/json", method = RequestMethod.POST)
+    
+    @RequestMapping(value="user",consumes = "application/json", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void createUser(@RequestBody UserVO userVO){
     	log.debug("createUser:" + userVO);
@@ -39,9 +41,9 @@ public class AdminController {
     	service.createNewUser(userVO);
     }
 
-    @RequestMapping(consumes = "application/json", method = RequestMethod.PUT)
+    @RequestMapping(value="user", consumes = "application/json", method = RequestMethod.PUT)
     @ResponseBody
-    public EUser editUser(@RequestBody UserVO userVO){
+    public User editUser(@RequestBody UserVO userVO){
     	log.debug("editUser:" + userVO);
     	
     	ControllerInputValidator.validateCreateUser(userVO);
@@ -49,4 +51,12 @@ public class AdminController {
         return service.updateUser(userVO);
     }
     
+    @RequestMapping(value="user", method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> getAllUsers(){
+    	log.debug("getAllUsers");
+    	
+    	
+        return service.getAllUsers();
+    }
 }

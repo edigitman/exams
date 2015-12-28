@@ -1,48 +1,67 @@
 package ro.ghasachi.bt.web.middleware.impl;
 
-import java.util.UUID;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import ro.ghasachi.bt.persistence.model.EUser;
-import ro.ghasachi.bt.persistence.service.IUserService;
+import ro.ghasachi.bt.persistence.tables.daos.UserDao;
+import ro.ghasachi.bt.persistence.tables.pojos.User;
 import ro.ghasachi.bt.web.middleware.AdminService;
+import ro.ghasachi.bt.web.util.OnRegistrationCompleteEvent;
 import ro.ghasachi.bt.web.vo.UserVO;
 
 @Service
+@Transactional
 public class AdminServiceImpl implements AdminService {
 
 	@Autowired
-	private IUserService iUserServce;
+	private UserDao userDao;
+	@Autowired
+	private ApplicationEventPublisher eventPublisher;
 
 	@Override
-	public void createNewUser(final UserVO userVO) {
-		EUser user = parseVO(userVO);
-		user.setToken(String.valueOf(UUID.randomUUID()));
+	public List<User> getAllUsers() {
 
-		// TODO send email
-		iUserServce.create(user);
+		return userDao.findAll();
 	}
 
 	@Override
-	public EUser updateUser(final UserVO userVO) {
+	public void createNewUser(final UserVO userVO) {
+		User user = parseVO(userVO);
+		userDao.insert(user);
 
-		EUser dbUser = iUserServce.findByEmail(userVO.getEmail());
-		if (dbUser != null) {
-			// update properties
+		try {
+			// String appUrl = request.getContextPath();
 
-			iUserServce.update(dbUser);
-			return dbUser;
+			// TODO send email
+			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, null, null));
+		} catch (Exception me) {
+
 		}
 
+	}
+
+	@Override
+	public User updateUser(final UserVO userVO) {
+
+		List<User> users = userDao.fetchByEmail(userVO.getEmail());
+		if (users != null && !users.isEmpty()) {
+			// update properties
+			User user = users.get(0);
+			userDao.update(user);
+			return user;
+		}
 		return null;
 	}
 
 	// Local methods
 
-	private EUser parseVO(UserVO userVO) {
-		return new EUser.Builder().name(userVO.getName()).lastname(userVO.getLastName()).email(userVO.getEmail())
-				.role(userVO.getRole()).build();
+	private User parseVO(UserVO userVO) {
+
+		return new User(null, userVO.getEmail(), false, userVO.getLastName(), userVO.getName(), null, userVO.getRole());
 	}
+
 }
