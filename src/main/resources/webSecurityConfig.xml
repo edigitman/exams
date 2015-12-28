@@ -15,16 +15,18 @@
         <intercept-url pattern="/admin" access="isAuthenticated()" />
 		<intercept-url pattern="/admin/**"/>
 		
-        <http-basic />
+        <form-login
+         authentication-success-handler-ref="mySuccessHandler"
+         authentication-failure-handler-ref="myFailureHandler"
+      />
 
     </http>
 
+	<beans:bean id="mySuccessHandler" class="ro.ghasachi.bt.security.MySavedRequestAwareAuthenticationSuccessHandler"/>
+   <beans:bean id="myFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"/>
+
     <authentication-manager>
-        <authentication-provider user-service-ref="customUserDetailsService">
-            <!--<user-service>-->
-                <!--<user name="user1" password="user1Pass" authorities="ROLE_USER" />-->
-            <!--</user-service>-->
-        </authentication-provider>
+        <authentication-provider user-service-ref="customUserDetailsService"></authentication-provider>
     </authentication-manager>
 
     <global-method-security pre-post-annotations="enabled" />
