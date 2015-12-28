@@ -1,4 +1,4 @@
-package ro.ghasachi.bt.web.util;
+package ro.ghasachi.bt.web.hateoas.event;
 
 import java.util.Locale;
 

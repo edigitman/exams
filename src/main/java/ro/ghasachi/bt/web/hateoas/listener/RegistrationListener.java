@@ -1,8 +1,10 @@
-package ro.ghasachi.bt.web.util;
+package ro.ghasachi.bt.web.hateoas.listener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.MessageSource;
+
+import ro.ghasachi.bt.web.hateoas.event.OnRegistrationCompleteEvent;
 
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
 //    @Autowired

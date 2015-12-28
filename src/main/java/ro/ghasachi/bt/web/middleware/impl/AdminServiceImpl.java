@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ro.ghasachi.bt.persistence.tables.daos.UserDao;
 import ro.ghasachi.bt.persistence.tables.pojos.User;
+import ro.ghasachi.bt.web.hateoas.event.OnRegistrationCompleteEvent;
 import ro.ghasachi.bt.web.middleware.AdminService;
-import ro.ghasachi.bt.web.util.OnRegistrationCompleteEvent;
 import ro.ghasachi.bt.web.vo.UserVO;
 
 @Service
