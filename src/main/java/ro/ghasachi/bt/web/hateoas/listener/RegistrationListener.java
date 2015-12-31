@@ -2,41 +2,19 @@ package ro.ghasachi.bt.web.hateoas.listener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.MessageSource;
-
+import org.springframework.stereotype.Component;
+import ro.ghasachi.bt.middleware.EmailService;
+import ro.ghasachi.bt.persistence.tables.pojos.User;
 import ro.ghasachi.bt.web.hateoas.event.OnRegistrationCompleteEvent;
 
+@Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
-//    @Autowired
-//    private IVerificationTokenService service;
+
     @Autowired
-    private MessageSource messages;
-    
-    //@Autowired
-    //private JavaMailSender mailSender;
- 
+    private EmailService emailService;
+
     @Override
     public void onApplicationEvent(OnRegistrationCompleteEvent event) {
-        this.confirmRegistration(event);
+        emailService.sendRegistrationEmail(event.getUser(), event.getAppUrl());
     }
- 
-    private void confirmRegistration(OnRegistrationCompleteEvent event) {
-//        User user = event.getUser();
-//        String token = UUID.randomUUID().toString();
-//        service.createVerificationToken(user, token);
-//         
-//        String recipientAddress = user.getEmail();
-//        String subject = "Registration Confirmation";
-//        String confirmationUrl = event.getAppUrl() + "/regitrationConfirm.html?token=" + token;
-//        String message = messages.getMessage("message.regSucc", null, event.getLocale());
-        
-        // TODO implement email service
-//        SimpleMailMessage email = new SimpleMailMessage();
-//        email.setTo(recipientAddress);
-//        email.setSubject(subject);
-//        email.setText(message + " rn" + "http://localhost:8080" + confirmationUrl);
-//        mailSender.send(email);
-    }
-
-
 }

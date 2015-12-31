@@ -71,4 +71,16 @@ public class UserVO {
 	public void setToken(String token) {
 		this.token = token;
 	}
+
+	@Override
+	public String toString() {
+		return "UserVO{" +
+				"name='" + name + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", role='" + role + '\'' +
+				", password='" + password + '\'' +
+				", token='" + token + '\'' +
+				'}';
+	}
 }

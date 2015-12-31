@@ -5,8 +5,11 @@ package ro.ghasachi.bt.persistence.tables.pojos;
 
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.annotation.Generated;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -22,55 +25,62 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User implements Serializable {
 
-	private static final long serialVersionUID = -397493550;
+	private static final long serialVersionUID = -1338856344;
 
-	private Long    id;
-	private String  email;
-	private Boolean enabled;
-	private String  lastname;
-	private String  name;
-	private String  password;
-	private String  role;
+	private Integer   id;
+	private String    email;
+	private String    name;
+	private String    lastname;
+	private String    password;
+	private Byte      enabled;
+	private String    role;
+	private Timestamp datecreated;
 
 	public User() {}
 
 	public User(User value) {
 		this.id = value.id;
 		this.email = value.email;
-		this.enabled = value.enabled;
-		this.lastname = value.lastname;
 		this.name = value.name;
+		this.lastname = value.lastname;
 		this.password = value.password;
+		this.enabled = value.enabled;
 		this.role = value.role;
+		this.datecreated = value.datecreated;
 	}
 
 	public User(
-		Long    id,
-		String  email,
-		Boolean enabled,
-		String  lastname,
-		String  name,
-		String  password,
-		String  role
+		Integer   id,
+		String    email,
+		String    name,
+		String    lastname,
+		String    password,
+		Byte      enabled,
+		String    role,
+		Timestamp datecreated
 	) {
 		this.id = id;
 		this.email = email;
-		this.enabled = enabled;
-		this.lastname = lastname;
 		this.name = name;
+		this.lastname = lastname;
 		this.password = password;
+		this.enabled = enabled;
 		this.role = role;
+		this.datecreated = datecreated;
 	}
 
-	public Long getId() {
+	@NotNull
+	public Integer getId() {
 		return this.id;
 	}
 
-	public User setId(Long id) {
+	public User setId(Integer id) {
 		this.id = id;
 		return this;
 	}
 
+	@NotNull
+	@Size(max = 45)
 	public String getEmail() {
 		return this.email;
 	}
@@ -80,24 +90,8 @@ public class User implements Serializable {
 		return this;
 	}
 
-	public Boolean getEnabled() {
-		return this.enabled;
-	}
-
-	public User setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-		return this;
-	}
-
-	public String getLastname() {
-		return this.lastname;
-	}
-
-	public User setLastname(String lastname) {
-		this.lastname = lastname;
-		return this;
-	}
-
+	@NotNull
+	@Size(max = 45)
 	public String getName() {
 		return this.name;
 	}
@@ -107,6 +101,18 @@ public class User implements Serializable {
 		return this;
 	}
 
+	@NotNull
+	@Size(max = 45)
+	public String getLastname() {
+		return this.lastname;
+	}
+
+	public User setLastname(String lastname) {
+		this.lastname = lastname;
+		return this;
+	}
+
+	@Size(max = 45)
 	public String getPassword() {
 		return this.password;
 	}
@@ -116,6 +122,18 @@ public class User implements Serializable {
 		return this;
 	}
 
+	@NotNull
+	public Byte getEnabled() {
+		return this.enabled;
+	}
+
+	public User setEnabled(Byte enabled) {
+		this.enabled = enabled;
+		return this;
+	}
+
+	@NotNull
+	@Size(max = 45)
 	public String getRole() {
 		return this.role;
 	}
@@ -125,17 +143,28 @@ public class User implements Serializable {
 		return this;
 	}
 
+	@NotNull
+	public Timestamp getDatecreated() {
+		return this.datecreated;
+	}
+
+	public User setDatecreated(Timestamp datecreated) {
+		this.datecreated = datecreated;
+		return this;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("User (");
 
 		sb.append(id);
 		sb.append(", ").append(email);
-		sb.append(", ").append(enabled);
-		sb.append(", ").append(lastname);
 		sb.append(", ").append(name);
+		sb.append(", ").append(lastname);
 		sb.append(", ").append(password);
+		sb.append(", ").append(enabled);
 		sb.append(", ").append(role);
+		sb.append(", ").append(datecreated);
 
 		sb.append(")");
 		return sb.toString();

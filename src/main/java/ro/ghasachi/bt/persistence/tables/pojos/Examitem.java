@@ -7,6 +7,8 @@ package ro.ghasachi.bt.persistence.tables.pojos;
 import java.io.Serializable;
 
 import javax.annotation.Generated;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -22,51 +24,54 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Examitem implements Serializable {
 
-	private static final long serialVersionUID = 1804770621;
+	private static final long serialVersionUID = 860022044;
 
-	private Long    id;
+	private Integer id;
 	private String  assertion;
-	private Integer dificulty;
-	private Integer points;
+	private Integer difficulty;
+	private Long    points;
 	private Integer type;
-	private Long    examId;
+	private Integer examid;
 
 	public Examitem() {}
 
 	public Examitem(Examitem value) {
 		this.id = value.id;
 		this.assertion = value.assertion;
-		this.dificulty = value.dificulty;
+		this.difficulty = value.difficulty;
 		this.points = value.points;
 		this.type = value.type;
-		this.examId = value.examId;
+		this.examid = value.examid;
 	}
 
 	public Examitem(
-		Long    id,
+		Integer id,
 		String  assertion,
-		Integer dificulty,
-		Integer points,
+		Integer difficulty,
+		Long    points,
 		Integer type,
-		Long    examId
+		Integer examid
 	) {
 		this.id = id;
 		this.assertion = assertion;
-		this.dificulty = dificulty;
+		this.difficulty = difficulty;
 		this.points = points;
 		this.type = type;
-		this.examId = examId;
+		this.examid = examid;
 	}
 
-	public Long getId() {
+	@NotNull
+	public Integer getId() {
 		return this.id;
 	}
 
-	public Examitem setId(Long id) {
+	public Examitem setId(Integer id) {
 		this.id = id;
 		return this;
 	}
 
+	@NotNull
+	@Size(max = 200)
 	public String getAssertion() {
 		return this.assertion;
 	}
@@ -76,20 +81,20 @@ public class Examitem implements Serializable {
 		return this;
 	}
 
-	public Integer getDificulty() {
-		return this.dificulty;
+	public Integer getDifficulty() {
+		return this.difficulty;
 	}
 
-	public Examitem setDificulty(Integer dificulty) {
-		this.dificulty = dificulty;
+	public Examitem setDifficulty(Integer difficulty) {
+		this.difficulty = difficulty;
 		return this;
 	}
 
-	public Integer getPoints() {
+	public Long getPoints() {
 		return this.points;
 	}
 
-	public Examitem setPoints(Integer points) {
+	public Examitem setPoints(Long points) {
 		this.points = points;
 		return this;
 	}
@@ -103,12 +108,12 @@ public class Examitem implements Serializable {
 		return this;
 	}
 
-	public Long getExamId() {
-		return this.examId;
+	public Integer getExamid() {
+		return this.examid;
 	}
 
-	public Examitem setExamId(Long examId) {
-		this.examId = examId;
+	public Examitem setExamid(Integer examid) {
+		this.examid = examid;
 		return this;
 	}
 
@@ -118,10 +123,10 @@ public class Examitem implements Serializable {
 
 		sb.append(id);
 		sb.append(", ").append(assertion);
-		sb.append(", ").append(dificulty);
+		sb.append(", ").append(difficulty);
 		sb.append(", ").append(points);
 		sb.append(", ").append(type);
-		sb.append(", ").append(examId);
+		sb.append(", ").append(examid);
 
 		sb.append(")");
 		return sb.toString();

@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import ro.ghasachi.bt.web.middleware.StudService;
-import ro.ghasachi.bt.web.vo.ExamInstanceVO;
-import ro.ghasachi.bt.web.vo.ExamItemVO;
-import ro.ghasachi.bt.web.vo.StudExamInstanceVO;
-import ro.ghasachi.bt.web.vo.StudInfoVO;
+import ro.ghasachi.bt.middleware.StudService;
+import ro.ghasachi.bt.web.util.ControllerInputValidator;
+import ro.ghasachi.bt.web.vo.*;
 
 @Controller
 @RequestMapping(value = "/stud")
@@ -48,26 +46,24 @@ public class StudController {
 	public StudExamInstanceVO takeExam(@PathVariable("id") Long id, @PathVariable("state") String state) {
 		log.debug("getExam: " + id + ", state: " + state);
 		
-		StudExamInstanceVO seiVO = service.changeExamInstance(id, state);
-		
-		return seiVO;
+		return service.changeExamInstance(id, state);
 	}
 
 	@RequestMapping(value = "item/{examId}/{itemId}", method = RequestMethod.GET)
 	@ResponseBody
-	public ExamItemVO getExamItem(@PathVariable("examId") Long examId, @PathVariable("itemId") Long itemId) {
-		log.debug("getExamItem: exam: " + examId + ", itemId" + itemId);
+	public ExamItemVO getExamItem(@PathVariable("examId") int examId, @PathVariable("itemId") int itemId) {
+		log.debug("getOneExamItem: exam: " + examId + ", itemId" + itemId);
 		
-		ExamItemVO eiVO = service.getExamItem(examId, itemId);
-		
-		return null;
+		return service.getExamItem(examId, itemId);
 	}
 
 	@RequestMapping(value = "item", consumes = "application/json", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void saveExamItem(@RequestBody ExamItemVO examItemVO) {
+	public void saveExamItem(@RequestBody ExamItemAnswerVO examItemVO) {
 		log.debug("saveExamItem: " + examItemVO);
-		
+
+		ControllerInputValidator.validateStudAnswer(examItemVO);
+
 		service.saveExamItem(examItemVO);		
 	}
 
@@ -80,5 +76,4 @@ public class StudController {
 		
 		return null;
 	}
-
 }

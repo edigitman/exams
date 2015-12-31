@@ -19,7 +19,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.TableImpl;
 
 import ro.ghasachi.bt.persistence.Keys;
-import ro.ghasachi.bt.persistence.Public;
+import ro.ghasachi.bt.persistence.Mydb;
 import ro.ghasachi.bt.persistence.tables.records.ExaminstanceRecord;
 
 
@@ -36,10 +36,10 @@ import ro.ghasachi.bt.persistence.tables.records.ExaminstanceRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Examinstance extends TableImpl<ExaminstanceRecord> {
 
-	private static final long serialVersionUID = -721443598;
+	private static final long serialVersionUID = 1674134976;
 
 	/**
-	 * The reference instance of <code>PUBLIC.EXAMINSTANCE</code>
+	 * The reference instance of <code>mydb.examinstance</code>
 	 */
 	public static final Examinstance EXAMINSTANCE = new Examinstance();
 
@@ -52,49 +52,59 @@ public class Examinstance extends TableImpl<ExaminstanceRecord> {
 	}
 
 	/**
-	 * The column <code>PUBLIC.EXAMINSTANCE.ID</code>.
+	 * The column <code>mydb.examinstance.id</code>.
 	 */
-	public final TableField<ExaminstanceRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaulted(true), this, "");
+	public final TableField<ExaminstanceRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMINSTANCE.ENDDATE</code>.
+	 * The column <code>mydb.examinstance.name</code>.
 	 */
-	public final TableField<ExaminstanceRecord, Timestamp> ENDDATE = createField("ENDDATE", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+	public final TableField<ExaminstanceRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(45).nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMINSTANCE.NAME</code>.
+	 * The column <code>mydb.examinstance.status</code>.
 	 */
-	public final TableField<ExaminstanceRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR.length(255), this, "");
+	public final TableField<ExaminstanceRecord, Integer> STATUS = createField("status", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMINSTANCE.STARTDATE</code>.
+	 * The column <code>mydb.examinstance.startdate</code>.
 	 */
-	public final TableField<ExaminstanceRecord, Timestamp> STARTDATE = createField("STARTDATE", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+	public final TableField<ExaminstanceRecord, Timestamp> STARTDATE = createField("startdate", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMINSTANCE.STATUS</code>.
+	 * The column <code>mydb.examinstance.enddate</code>.
 	 */
-	public final TableField<ExaminstanceRecord, Integer> STATUS = createField("STATUS", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+	public final TableField<ExaminstanceRecord, Timestamp> ENDDATE = createField("enddate", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMINSTANCE.EXAM_ID</code>.
+	 * The column <code>mydb.examinstance.points</code>.
 	 */
-	public final TableField<ExaminstanceRecord, Long> EXAM_ID = createField("EXAM_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
+	public final TableField<ExaminstanceRecord, Long> POINTS = createField("points", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMINSTANCE.GROUP_ID</code>.
+	 * The column <code>mydb.examinstance.examid</code>.
 	 */
-	public final TableField<ExaminstanceRecord, Long> GROUP_ID = createField("GROUP_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
+	public final TableField<ExaminstanceRecord, Integer> EXAMID = createField("examid", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
-	 * Create a <code>PUBLIC.EXAMINSTANCE</code> table reference
+	 * The column <code>mydb.examinstance.egroupid</code>.
+	 */
+	public final TableField<ExaminstanceRecord, Integer> EGROUPID = createField("egroupid", org.jooq.impl.SQLDataType.INTEGER, this, "");
+
+	/**
+	 * The column <code>mydb.examinstance.datecreated</code>.
+	 */
+	public final TableField<ExaminstanceRecord, Timestamp> DATECREATED = createField("datecreated", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false).defaulted(true), this, "");
+
+	/**
+	 * Create a <code>mydb.examinstance</code> table reference
 	 */
 	public Examinstance() {
-		this("EXAMINSTANCE", null);
+		this("examinstance", null);
 	}
 
 	/**
-	 * Create an aliased <code>PUBLIC.EXAMINSTANCE</code> table reference
+	 * Create an aliased <code>mydb.examinstance</code> table reference
 	 */
 	public Examinstance(String alias) {
 		this(alias, EXAMINSTANCE);
@@ -105,14 +115,14 @@ public class Examinstance extends TableImpl<ExaminstanceRecord> {
 	}
 
 	private Examinstance(String alias, Table<ExaminstanceRecord> aliased, Field<?>[] parameters) {
-		super(alias, Public.PUBLIC, aliased, parameters, "");
+		super(alias, Mydb.MYDB, aliased, parameters, "");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Identity<ExaminstanceRecord, Long> getIdentity() {
+	public Identity<ExaminstanceRecord, Integer> getIdentity() {
 		return Keys.IDENTITY_EXAMINSTANCE;
 	}
 
@@ -121,7 +131,7 @@ public class Examinstance extends TableImpl<ExaminstanceRecord> {
 	 */
 	@Override
 	public UniqueKey<ExaminstanceRecord> getPrimaryKey() {
-		return Keys.CONSTRAINT_3;
+		return Keys.KEY_EXAMINSTANCE_PRIMARY;
 	}
 
 	/**
@@ -129,7 +139,7 @@ public class Examinstance extends TableImpl<ExaminstanceRecord> {
 	 */
 	@Override
 	public List<UniqueKey<ExaminstanceRecord>> getKeys() {
-		return Arrays.<UniqueKey<ExaminstanceRecord>>asList(Keys.CONSTRAINT_3);
+		return Arrays.<UniqueKey<ExaminstanceRecord>>asList(Keys.KEY_EXAMINSTANCE_PRIMARY);
 	}
 
 	/**
@@ -137,7 +147,7 @@ public class Examinstance extends TableImpl<ExaminstanceRecord> {
 	 */
 	@Override
 	public List<ForeignKey<ExaminstanceRecord, ?>> getReferences() {
-		return Arrays.<ForeignKey<ExaminstanceRecord, ?>>asList(Keys.FK_J9CJF2LRMXOGRDG56PMLTPF6X, Keys.FK_K7AUB0RG88M0YSMA98OSDGXTF);
+		return Arrays.<ForeignKey<ExaminstanceRecord, ?>>asList(Keys.EXAM_FK, Keys.EGROUP_FK);
 	}
 
 	/**

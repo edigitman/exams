@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.annotation.Generated;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -23,79 +25,72 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Examinstance implements Serializable {
 
-	private static final long serialVersionUID = 720551683;
+	private static final long serialVersionUID = 1368973084;
 
-	private Long      id;
-	private Timestamp enddate;
+	private Integer   id;
 	private String    name;
-	private Timestamp startdate;
 	private Integer   status;
-	private Long      examId;
-	private Long      groupId;
+	private Timestamp startdate;
+	private Timestamp enddate;
+	private Long      points;
+	private Integer   examid;
+	private Integer   egroupid;
+	private Timestamp datecreated;
 
 	public Examinstance() {}
 
 	public Examinstance(Examinstance value) {
 		this.id = value.id;
-		this.enddate = value.enddate;
 		this.name = value.name;
-		this.startdate = value.startdate;
 		this.status = value.status;
-		this.examId = value.examId;
-		this.groupId = value.groupId;
+		this.startdate = value.startdate;
+		this.enddate = value.enddate;
+		this.points = value.points;
+		this.examid = value.examid;
+		this.egroupid = value.egroupid;
+		this.datecreated = value.datecreated;
 	}
 
 	public Examinstance(
-		Long      id,
-		Timestamp enddate,
+		Integer   id,
 		String    name,
-		Timestamp startdate,
 		Integer   status,
-		Long      examId,
-		Long      groupId
+		Timestamp startdate,
+		Timestamp enddate,
+		Long      points,
+		Integer   examid,
+		Integer   egroupid,
+		Timestamp datecreated
 	) {
 		this.id = id;
-		this.enddate = enddate;
 		this.name = name;
-		this.startdate = startdate;
 		this.status = status;
-		this.examId = examId;
-		this.groupId = groupId;
+		this.startdate = startdate;
+		this.enddate = enddate;
+		this.points = points;
+		this.examid = examid;
+		this.egroupid = egroupid;
+		this.datecreated = datecreated;
 	}
 
-	public Long getId() {
+	@NotNull
+	public Integer getId() {
 		return this.id;
 	}
 
-	public Examinstance setId(Long id) {
+	public Examinstance setId(Integer id) {
 		this.id = id;
 		return this;
 	}
 
-	public Timestamp getEnddate() {
-		return this.enddate;
-	}
-
-	public Examinstance setEnddate(Timestamp enddate) {
-		this.enddate = enddate;
-		return this;
-	}
-
+	@NotNull
+	@Size(max = 45)
 	public String getName() {
 		return this.name;
 	}
 
 	public Examinstance setName(String name) {
 		this.name = name;
-		return this;
-	}
-
-	public Timestamp getStartdate() {
-		return this.startdate;
-	}
-
-	public Examinstance setStartdate(Timestamp startdate) {
-		this.startdate = startdate;
 		return this;
 	}
 
@@ -108,21 +103,58 @@ public class Examinstance implements Serializable {
 		return this;
 	}
 
-	public Long getExamId() {
-		return this.examId;
+	public Timestamp getStartdate() {
+		return this.startdate;
 	}
 
-	public Examinstance setExamId(Long examId) {
-		this.examId = examId;
+	public Examinstance setStartdate(Timestamp startdate) {
+		this.startdate = startdate;
 		return this;
 	}
 
-	public Long getGroupId() {
-		return this.groupId;
+	public Timestamp getEnddate() {
+		return this.enddate;
 	}
 
-	public Examinstance setGroupId(Long groupId) {
-		this.groupId = groupId;
+	public Examinstance setEnddate(Timestamp enddate) {
+		this.enddate = enddate;
+		return this;
+	}
+
+	public Long getPoints() {
+		return this.points;
+	}
+
+	public Examinstance setPoints(Long points) {
+		this.points = points;
+		return this;
+	}
+
+	public Integer getExamid() {
+		return this.examid;
+	}
+
+	public Examinstance setExamid(Integer examid) {
+		this.examid = examid;
+		return this;
+	}
+
+	public Integer getEgroupid() {
+		return this.egroupid;
+	}
+
+	public Examinstance setEgroupid(Integer egroupid) {
+		this.egroupid = egroupid;
+		return this;
+	}
+
+	@NotNull
+	public Timestamp getDatecreated() {
+		return this.datecreated;
+	}
+
+	public Examinstance setDatecreated(Timestamp datecreated) {
+		this.datecreated = datecreated;
 		return this;
 	}
 
@@ -131,12 +163,14 @@ public class Examinstance implements Serializable {
 		StringBuilder sb = new StringBuilder("Examinstance (");
 
 		sb.append(id);
-		sb.append(", ").append(enddate);
 		sb.append(", ").append(name);
-		sb.append(", ").append(startdate);
 		sb.append(", ").append(status);
-		sb.append(", ").append(examId);
-		sb.append(", ").append(groupId);
+		sb.append(", ").append(startdate);
+		sb.append(", ").append(enddate);
+		sb.append(", ").append(points);
+		sb.append(", ").append(examid);
+		sb.append(", ").append(egroupid);
+		sb.append(", ").append(datecreated);
 
 		sb.append(")");
 		return sb.toString();

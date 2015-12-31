@@ -5,8 +5,11 @@ package ro.ghasachi.bt.persistence.tables.pojos;
 
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.annotation.Generated;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -22,43 +25,70 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Studexamanswer implements Serializable {
 
-	private static final long serialVersionUID = 720920727;
+	private static final long serialVersionUID = 516470449;
 
-	private Long   id;
-	private String value;
-	private Long   examinstanceId;
-	private Long   itemId;
+	private Integer   id;
+	private Integer   studexaminst;
+	private Integer   examitem;
+	private String    value;
+	private Timestamp datecreated;
 
 	public Studexamanswer() {}
 
 	public Studexamanswer(Studexamanswer value) {
 		this.id = value.id;
+		this.studexaminst = value.studexaminst;
+		this.examitem = value.examitem;
 		this.value = value.value;
-		this.examinstanceId = value.examinstanceId;
-		this.itemId = value.itemId;
+		this.datecreated = value.datecreated;
 	}
 
 	public Studexamanswer(
-		Long   id,
-		String value,
-		Long   examinstanceId,
-		Long   itemId
+		Integer   id,
+		Integer   studexaminst,
+		Integer   examitem,
+		String    value,
+		Timestamp datecreated
 	) {
 		this.id = id;
+		this.studexaminst = studexaminst;
+		this.examitem = examitem;
 		this.value = value;
-		this.examinstanceId = examinstanceId;
-		this.itemId = itemId;
+		this.datecreated = datecreated;
 	}
 
-	public Long getId() {
+	@NotNull
+	public Integer getId() {
 		return this.id;
 	}
 
-	public Studexamanswer setId(Long id) {
+	public Studexamanswer setId(Integer id) {
 		this.id = id;
 		return this;
 	}
 
+	@NotNull
+	public Integer getStudexaminst() {
+		return this.studexaminst;
+	}
+
+	public Studexamanswer setStudexaminst(Integer studexaminst) {
+		this.studexaminst = studexaminst;
+		return this;
+	}
+
+	@NotNull
+	public Integer getExamitem() {
+		return this.examitem;
+	}
+
+	public Studexamanswer setExamitem(Integer examitem) {
+		this.examitem = examitem;
+		return this;
+	}
+
+	@NotNull
+	@Size(max = 45)
 	public String getValue() {
 		return this.value;
 	}
@@ -68,21 +98,13 @@ public class Studexamanswer implements Serializable {
 		return this;
 	}
 
-	public Long getExaminstanceId() {
-		return this.examinstanceId;
+	@NotNull
+	public Timestamp getDatecreated() {
+		return this.datecreated;
 	}
 
-	public Studexamanswer setExaminstanceId(Long examinstanceId) {
-		this.examinstanceId = examinstanceId;
-		return this;
-	}
-
-	public Long getItemId() {
-		return this.itemId;
-	}
-
-	public Studexamanswer setItemId(Long itemId) {
-		this.itemId = itemId;
+	public Studexamanswer setDatecreated(Timestamp datecreated) {
+		this.datecreated = datecreated;
 		return this;
 	}
 
@@ -91,9 +113,10 @@ public class Studexamanswer implements Serializable {
 		StringBuilder sb = new StringBuilder("Studexamanswer (");
 
 		sb.append(id);
+		sb.append(", ").append(studexaminst);
+		sb.append(", ").append(examitem);
 		sb.append(", ").append(value);
-		sb.append(", ").append(examinstanceId);
-		sb.append(", ").append(itemId);
+		sb.append(", ").append(datecreated);
 
 		sb.append(")");
 		return sb.toString();

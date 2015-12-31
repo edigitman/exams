@@ -29,7 +29,7 @@ import ro.ghasachi.bt.persistence.tables.records.ExamitemanswerRecord;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class ExamitemanswerDao extends DAOImpl<ExamitemanswerRecord, ro.ghasachi.bt.persistence.tables.pojos.Examitemanswer, Long> {
+public class ExamitemanswerDao extends DAOImpl<ExamitemanswerRecord, ro.ghasachi.bt.persistence.tables.pojos.Examitemanswer, Integer> {
 
 	/**
 	 * Create a new ExamitemanswerDao without any configuration
@@ -50,42 +50,42 @@ public class ExamitemanswerDao extends DAOImpl<ExamitemanswerRecord, ro.ghasachi
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Long getId(ro.ghasachi.bt.persistence.tables.pojos.Examitemanswer object) {
+	protected Integer getId(ro.ghasachi.bt.persistence.tables.pojos.Examitemanswer object) {
 		return object.getId();
 	}
 
 	/**
-	 * Fetch records that have <code>ID IN (values)</code>
+	 * Fetch records that have <code>id IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitemanswer> fetchById(Long... values) {
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitemanswer> fetchById(Integer... values) {
 		return fetch(Examitemanswer.EXAMITEMANSWER.ID, values);
 	}
 
 	/**
-	 * Fetch a unique record that has <code>ID = value</code>
+	 * Fetch a unique record that has <code>id = value</code>
 	 */
-	public ro.ghasachi.bt.persistence.tables.pojos.Examitemanswer fetchOneById(Long value) {
+	public ro.ghasachi.bt.persistence.tables.pojos.Examitemanswer fetchOneById(Integer value) {
 		return fetchOne(Examitemanswer.EXAMITEMANSWER.ID, value);
 	}
 
 	/**
-	 * Fetch records that have <code>CORRECT IN (values)</code>
+	 * Fetch records that have <code>correct IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitemanswer> fetchByCorrect(Boolean... values) {
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitemanswer> fetchByCorrect(Byte... values) {
 		return fetch(Examitemanswer.EXAMITEMANSWER.CORRECT, values);
 	}
 
 	/**
-	 * Fetch records that have <code>VALUE IN (values)</code>
+	 * Fetch records that have <code>value IN (values)</code>
 	 */
 	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitemanswer> fetchByValue(String... values) {
 		return fetch(Examitemanswer.EXAMITEMANSWER.VALUE, values);
 	}
 
 	/**
-	 * Fetch records that have <code>ITEM_ID IN (values)</code>
+	 * Fetch records that have <code>itemid IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitemanswer> fetchByItemId(Long... values) {
-		return fetch(Examitemanswer.EXAMITEMANSWER.ITEM_ID, values);
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitemanswer> fetchByItemid(Integer... values) {
+		return fetch(Examitemanswer.EXAMITEMANSWER.ITEMID, values);
 	}
 }

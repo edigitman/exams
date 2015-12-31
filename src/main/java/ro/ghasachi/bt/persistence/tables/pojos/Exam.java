@@ -5,8 +5,11 @@ package ro.ghasachi.bt.persistence.tables.pojos;
 
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.annotation.Generated;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -22,52 +25,50 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Exam implements Serializable {
 
-	private static final long serialVersionUID = 868818898;
+	private static final long serialVersionUID = -1211791173;
 
-	private Long   id;
-	private String description;
-	private String name;
-	private Long   professorId;
+	private Integer   id;
+	private String    name;
+	private Integer   userid;
+	private String    dificulty;
+	private Timestamp datecreated;
 
 	public Exam() {}
 
 	public Exam(Exam value) {
 		this.id = value.id;
-		this.description = value.description;
 		this.name = value.name;
-		this.professorId = value.professorId;
+		this.userid = value.userid;
+		this.dificulty = value.dificulty;
+		this.datecreated = value.datecreated;
 	}
 
 	public Exam(
-		Long   id,
-		String description,
-		String name,
-		Long   professorId
+		Integer   id,
+		String    name,
+		Integer   userid,
+		String    dificulty,
+		Timestamp datecreated
 	) {
 		this.id = id;
-		this.description = description;
 		this.name = name;
-		this.professorId = professorId;
+		this.userid = userid;
+		this.dificulty = dificulty;
+		this.datecreated = datecreated;
 	}
 
-	public Long getId() {
+	@NotNull
+	public Integer getId() {
 		return this.id;
 	}
 
-	public Exam setId(Long id) {
+	public Exam setId(Integer id) {
 		this.id = id;
 		return this;
 	}
 
-	public String getDescription() {
-		return this.description;
-	}
-
-	public Exam setDescription(String description) {
-		this.description = description;
-		return this;
-	}
-
+	@NotNull
+	@Size(max = 100)
 	public String getName() {
 		return this.name;
 	}
@@ -77,12 +78,33 @@ public class Exam implements Serializable {
 		return this;
 	}
 
-	public Long getProfessorId() {
-		return this.professorId;
+	@NotNull
+	public Integer getUserid() {
+		return this.userid;
 	}
 
-	public Exam setProfessorId(Long professorId) {
-		this.professorId = professorId;
+	public Exam setUserid(Integer userid) {
+		this.userid = userid;
+		return this;
+	}
+
+	@Size(max = 10)
+	public String getDificulty() {
+		return this.dificulty;
+	}
+
+	public Exam setDificulty(String dificulty) {
+		this.dificulty = dificulty;
+		return this;
+	}
+
+	@NotNull
+	public Timestamp getDatecreated() {
+		return this.datecreated;
+	}
+
+	public Exam setDatecreated(Timestamp datecreated) {
+		this.datecreated = datecreated;
 		return this;
 	}
 
@@ -91,9 +113,10 @@ public class Exam implements Serializable {
 		StringBuilder sb = new StringBuilder("Exam (");
 
 		sb.append(id);
-		sb.append(", ").append(description);
 		sb.append(", ").append(name);
-		sb.append(", ").append(professorId);
+		sb.append(", ").append(userid);
+		sb.append(", ").append(dificulty);
+		sb.append(", ").append(datecreated);
 
 		sb.append(")");
 		return sb.toString();

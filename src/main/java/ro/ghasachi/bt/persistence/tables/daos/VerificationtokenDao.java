@@ -30,7 +30,7 @@ import ro.ghasachi.bt.persistence.tables.records.VerificationtokenRecord;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class VerificationtokenDao extends DAOImpl<VerificationtokenRecord, ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken, Long> {
+public class VerificationtokenDao extends DAOImpl<VerificationtokenRecord, ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken, Integer> {
 
 	/**
 	 * Create a new VerificationtokenDao without any configuration
@@ -51,49 +51,56 @@ public class VerificationtokenDao extends DAOImpl<VerificationtokenRecord, ro.gh
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Long getId(ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken object) {
+	protected Integer getId(ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken object) {
 		return object.getId();
 	}
 
 	/**
-	 * Fetch records that have <code>ID IN (values)</code>
+	 * Fetch records that have <code>id IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken> fetchById(Long... values) {
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken> fetchById(Integer... values) {
 		return fetch(Verificationtoken.VERIFICATIONTOKEN.ID, values);
 	}
 
 	/**
-	 * Fetch a unique record that has <code>ID = value</code>
+	 * Fetch a unique record that has <code>id = value</code>
 	 */
-	public ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken fetchOneById(Long value) {
+	public ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken fetchOneById(Integer value) {
 		return fetchOne(Verificationtoken.VERIFICATIONTOKEN.ID, value);
 	}
 
 	/**
-	 * Fetch records that have <code>EXPIRYDATE IN (values)</code>
+	 * Fetch records that have <code>expiredate IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken> fetchByExpirydate(Timestamp... values) {
-		return fetch(Verificationtoken.VERIFICATIONTOKEN.EXPIRYDATE, values);
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken> fetchByExpiredate(Timestamp... values) {
+		return fetch(Verificationtoken.VERIFICATIONTOKEN.EXPIREDATE, values);
 	}
 
 	/**
-	 * Fetch records that have <code>TOKEN IN (values)</code>
+	 * Fetch records that have <code>token IN (values)</code>
 	 */
 	public List<ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken> fetchByToken(String... values) {
 		return fetch(Verificationtoken.VERIFICATIONTOKEN.TOKEN, values);
 	}
 
 	/**
-	 * Fetch records that have <code>VERIFIED IN (values)</code>
+	 * Fetch records that have <code>verified IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken> fetchByVerified(Boolean... values) {
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken> fetchByVerified(Byte... values) {
 		return fetch(Verificationtoken.VERIFICATIONTOKEN.VERIFIED, values);
 	}
 
 	/**
-	 * Fetch records that have <code>USER_ID IN (values)</code>
+	 * Fetch records that have <code>userid IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken> fetchByUserId(Long... values) {
-		return fetch(Verificationtoken.VERIFICATIONTOKEN.USER_ID, values);
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken> fetchByUserid(Integer... values) {
+		return fetch(Verificationtoken.VERIFICATIONTOKEN.USERID, values);
+	}
+
+	/**
+	 * Fetch records that have <code>datecreated IN (values)</code>
+	 */
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Verificationtoken> fetchByDatecreated(Timestamp... values) {
+		return fetch(Verificationtoken.VERIFICATIONTOKEN.DATECREATED, values);
 	}
 }

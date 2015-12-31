@@ -18,7 +18,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.TableImpl;
 
 import ro.ghasachi.bt.persistence.Keys;
-import ro.ghasachi.bt.persistence.Public;
+import ro.ghasachi.bt.persistence.Mydb;
 import ro.ghasachi.bt.persistence.tables.records.ExamitemanswerRecord;
 
 
@@ -35,10 +35,10 @@ import ro.ghasachi.bt.persistence.tables.records.ExamitemanswerRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Examitemanswer extends TableImpl<ExamitemanswerRecord> {
 
-	private static final long serialVersionUID = 1180139495;
+	private static final long serialVersionUID = -120024901;
 
 	/**
-	 * The reference instance of <code>PUBLIC.EXAMITEMANSWER</code>
+	 * The reference instance of <code>mydb.examitemanswer</code>
 	 */
 	public static final Examitemanswer EXAMITEMANSWER = new Examitemanswer();
 
@@ -51,34 +51,34 @@ public class Examitemanswer extends TableImpl<ExamitemanswerRecord> {
 	}
 
 	/**
-	 * The column <code>PUBLIC.EXAMITEMANSWER.ID</code>.
+	 * The column <code>mydb.examitemanswer.id</code>.
 	 */
-	public final TableField<ExamitemanswerRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaulted(true), this, "");
+	public final TableField<ExamitemanswerRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMITEMANSWER.CORRECT</code>.
+	 * The column <code>mydb.examitemanswer.correct</code>.
 	 */
-	public final TableField<ExamitemanswerRecord, Boolean> CORRECT = createField("CORRECT", org.jooq.impl.SQLDataType.BOOLEAN.nullable(false), this, "");
+	public final TableField<ExamitemanswerRecord, Byte> CORRECT = createField("correct", org.jooq.impl.SQLDataType.TINYINT.nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMITEMANSWER.VALUE</code>.
+	 * The column <code>mydb.examitemanswer.value</code>.
 	 */
-	public final TableField<ExamitemanswerRecord, String> VALUE = createField("VALUE", org.jooq.impl.SQLDataType.VARCHAR.length(255), this, "");
+	public final TableField<ExamitemanswerRecord, String> VALUE = createField("value", org.jooq.impl.SQLDataType.VARCHAR.length(100).nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMITEMANSWER.ITEM_ID</code>.
+	 * The column <code>mydb.examitemanswer.itemid</code>.
 	 */
-	public final TableField<ExamitemanswerRecord, Long> ITEM_ID = createField("ITEM_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
+	public final TableField<ExamitemanswerRecord, Integer> ITEMID = createField("itemid", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * Create a <code>PUBLIC.EXAMITEMANSWER</code> table reference
+	 * Create a <code>mydb.examitemanswer</code> table reference
 	 */
 	public Examitemanswer() {
-		this("EXAMITEMANSWER", null);
+		this("examitemanswer", null);
 	}
 
 	/**
-	 * Create an aliased <code>PUBLIC.EXAMITEMANSWER</code> table reference
+	 * Create an aliased <code>mydb.examitemanswer</code> table reference
 	 */
 	public Examitemanswer(String alias) {
 		this(alias, EXAMITEMANSWER);
@@ -89,14 +89,14 @@ public class Examitemanswer extends TableImpl<ExamitemanswerRecord> {
 	}
 
 	private Examitemanswer(String alias, Table<ExamitemanswerRecord> aliased, Field<?>[] parameters) {
-		super(alias, Public.PUBLIC, aliased, parameters, "");
+		super(alias, Mydb.MYDB, aliased, parameters, "");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Identity<ExamitemanswerRecord, Long> getIdentity() {
+	public Identity<ExamitemanswerRecord, Integer> getIdentity() {
 		return Keys.IDENTITY_EXAMITEMANSWER;
 	}
 
@@ -105,7 +105,7 @@ public class Examitemanswer extends TableImpl<ExamitemanswerRecord> {
 	 */
 	@Override
 	public UniqueKey<ExamitemanswerRecord> getPrimaryKey() {
-		return Keys.CONSTRAINT_4;
+		return Keys.KEY_EXAMITEMANSWER_PRIMARY;
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class Examitemanswer extends TableImpl<ExamitemanswerRecord> {
 	 */
 	@Override
 	public List<UniqueKey<ExamitemanswerRecord>> getKeys() {
-		return Arrays.<UniqueKey<ExamitemanswerRecord>>asList(Keys.CONSTRAINT_4);
+		return Arrays.<UniqueKey<ExamitemanswerRecord>>asList(Keys.KEY_EXAMITEMANSWER_PRIMARY);
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class Examitemanswer extends TableImpl<ExamitemanswerRecord> {
 	 */
 	@Override
 	public List<ForeignKey<ExamitemanswerRecord, ?>> getReferences() {
-		return Arrays.<ForeignKey<ExamitemanswerRecord, ?>>asList(Keys.FK_3PXCG18V6FWPWR9W6ALU1AW5I);
+		return Arrays.<ForeignKey<ExamitemanswerRecord, ?>>asList(Keys.ITEM_FK);
 	}
 
 	/**

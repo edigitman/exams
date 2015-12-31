@@ -4,6 +4,7 @@
 package ro.ghasachi.bt.persistence.tables.daos;
 
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -29,7 +30,7 @@ import ro.ghasachi.bt.persistence.tables.records.StudexamanswerRecord;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class StudexamanswerDao extends DAOImpl<StudexamanswerRecord, ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer, Long> {
+public class StudexamanswerDao extends DAOImpl<StudexamanswerRecord, ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer, Integer> {
 
 	/**
 	 * Create a new StudexamanswerDao without any configuration
@@ -50,42 +51,49 @@ public class StudexamanswerDao extends DAOImpl<StudexamanswerRecord, ro.ghasachi
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Long getId(ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer object) {
+	protected Integer getId(ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer object) {
 		return object.getId();
 	}
 
 	/**
-	 * Fetch records that have <code>ID IN (values)</code>
+	 * Fetch records that have <code>id IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer> fetchById(Long... values) {
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer> fetchById(Integer... values) {
 		return fetch(Studexamanswer.STUDEXAMANSWER.ID, values);
 	}
 
 	/**
-	 * Fetch a unique record that has <code>ID = value</code>
+	 * Fetch a unique record that has <code>id = value</code>
 	 */
-	public ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer fetchOneById(Long value) {
+	public ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer fetchOneById(Integer value) {
 		return fetchOne(Studexamanswer.STUDEXAMANSWER.ID, value);
 	}
 
 	/**
-	 * Fetch records that have <code>VALUE IN (values)</code>
+	 * Fetch records that have <code>studexaminst IN (values)</code>
+	 */
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer> fetchByStudexaminst(Integer... values) {
+		return fetch(Studexamanswer.STUDEXAMANSWER.STUDEXAMINST, values);
+	}
+
+	/**
+	 * Fetch records that have <code>examitem IN (values)</code>
+	 */
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer> fetchByExamitem(Integer... values) {
+		return fetch(Studexamanswer.STUDEXAMANSWER.EXAMITEM, values);
+	}
+
+	/**
+	 * Fetch records that have <code>value IN (values)</code>
 	 */
 	public List<ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer> fetchByValue(String... values) {
 		return fetch(Studexamanswer.STUDEXAMANSWER.VALUE, values);
 	}
 
 	/**
-	 * Fetch records that have <code>EXAMINSTANCE_ID IN (values)</code>
+	 * Fetch records that have <code>datecreated IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer> fetchByExaminstanceId(Long... values) {
-		return fetch(Studexamanswer.STUDEXAMANSWER.EXAMINSTANCE_ID, values);
-	}
-
-	/**
-	 * Fetch records that have <code>ITEM_ID IN (values)</code>
-	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer> fetchByItemId(Long... values) {
-		return fetch(Studexamanswer.STUDEXAMANSWER.ITEM_ID, values);
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Studexamanswer> fetchByDatecreated(Timestamp... values) {
+		return fetch(Studexamanswer.STUDEXAMANSWER.DATECREATED, values);
 	}
 }

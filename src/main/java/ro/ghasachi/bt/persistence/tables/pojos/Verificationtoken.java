@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.annotation.Generated;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -23,56 +25,64 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Verificationtoken implements Serializable {
 
-	private static final long serialVersionUID = -81727619;
+	private static final long serialVersionUID = 886813197;
 
-	private Long      id;
-	private Timestamp expirydate;
+	private Integer   id;
+	private Timestamp expiredate;
 	private String    token;
-	private Boolean   verified;
-	private Long      userId;
+	private Byte      verified;
+	private Integer   userid;
+	private Timestamp datecreated;
 
 	public Verificationtoken() {}
 
 	public Verificationtoken(Verificationtoken value) {
 		this.id = value.id;
-		this.expirydate = value.expirydate;
+		this.expiredate = value.expiredate;
 		this.token = value.token;
 		this.verified = value.verified;
-		this.userId = value.userId;
+		this.userid = value.userid;
+		this.datecreated = value.datecreated;
 	}
 
 	public Verificationtoken(
-		Long      id,
-		Timestamp expirydate,
+		Integer   id,
+		Timestamp expiredate,
 		String    token,
-		Boolean   verified,
-		Long      userId
+		Byte      verified,
+		Integer   userid,
+		Timestamp datecreated
 	) {
 		this.id = id;
-		this.expirydate = expirydate;
+		this.expiredate = expiredate;
 		this.token = token;
 		this.verified = verified;
-		this.userId = userId;
+		this.userid = userid;
+		this.datecreated = datecreated;
 	}
 
-	public Long getId() {
+	@NotNull
+	public Integer getId() {
 		return this.id;
 	}
 
-	public Verificationtoken setId(Long id) {
+	public Verificationtoken setId(Integer id) {
 		this.id = id;
 		return this;
 	}
 
-	public Timestamp getExpirydate() {
-		return this.expirydate;
+	@NotNull
+	public Timestamp getExpiredate() {
+		return this.expiredate;
 	}
 
-	public Verificationtoken setExpirydate(Timestamp expirydate) {
-		this.expirydate = expirydate;
+	public Verificationtoken setExpiredate(Timestamp expiredate) {
+		this.expiredate = expiredate;
 		return this;
 	}
 
+	@NotNull
+	@Size(max = 37)
 	public String getToken() {
 		return this.token;
 	}
@@ -82,21 +92,32 @@ public class Verificationtoken implements Serializable {
 		return this;
 	}
 
-	public Boolean getVerified() {
+	public Byte getVerified() {
 		return this.verified;
 	}
 
-	public Verificationtoken setVerified(Boolean verified) {
+	public Verificationtoken setVerified(Byte verified) {
 		this.verified = verified;
 		return this;
 	}
 
-	public Long getUserId() {
-		return this.userId;
+	@NotNull
+	public Integer getUserid() {
+		return this.userid;
 	}
 
-	public Verificationtoken setUserId(Long userId) {
-		this.userId = userId;
+	public Verificationtoken setUserid(Integer userid) {
+		this.userid = userid;
+		return this;
+	}
+
+	@NotNull
+	public Timestamp getDatecreated() {
+		return this.datecreated;
+	}
+
+	public Verificationtoken setDatecreated(Timestamp datecreated) {
+		this.datecreated = datecreated;
 		return this;
 	}
 
@@ -105,10 +126,11 @@ public class Verificationtoken implements Serializable {
 		StringBuilder sb = new StringBuilder("Verificationtoken (");
 
 		sb.append(id);
-		sb.append(", ").append(expirydate);
+		sb.append(", ").append(expiredate);
 		sb.append(", ").append(token);
 		sb.append(", ").append(verified);
-		sb.append(", ").append(userId);
+		sb.append(", ").append(userid);
+		sb.append(", ").append(datecreated);
 
 		sb.append(")");
 		return sb.toString();

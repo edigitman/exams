@@ -5,8 +5,10 @@ package ro.ghasachi.bt.persistence.tables.pojos;
 
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.annotation.Generated;
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -22,54 +24,99 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Studexaminstance implements Serializable {
 
-	private static final long serialVersionUID = -737020624;
+	private static final long serialVersionUID = 1046299813;
 
-	private Long id;
-	private Long examinstanceId;
-	private Long studentId;
+	private Integer   id;
+	private Integer   examid;
+	private Integer   userid;
+	private Integer   status;
+	private Timestamp datecreated;
+	private Timestamp dateupdated;
 
 	public Studexaminstance() {}
 
 	public Studexaminstance(Studexaminstance value) {
 		this.id = value.id;
-		this.examinstanceId = value.examinstanceId;
-		this.studentId = value.studentId;
+		this.examid = value.examid;
+		this.userid = value.userid;
+		this.status = value.status;
+		this.datecreated = value.datecreated;
+		this.dateupdated = value.dateupdated;
 	}
 
 	public Studexaminstance(
-		Long id,
-		Long examinstanceId,
-		Long studentId
+		Integer   id,
+		Integer   examid,
+		Integer   userid,
+		Integer   status,
+		Timestamp datecreated,
+		Timestamp dateupdated
 	) {
 		this.id = id;
-		this.examinstanceId = examinstanceId;
-		this.studentId = studentId;
+		this.examid = examid;
+		this.userid = userid;
+		this.status = status;
+		this.datecreated = datecreated;
+		this.dateupdated = dateupdated;
 	}
 
-	public Long getId() {
+	@NotNull
+	public Integer getId() {
 		return this.id;
 	}
 
-	public Studexaminstance setId(Long id) {
+	public Studexaminstance setId(Integer id) {
 		this.id = id;
 		return this;
 	}
 
-	public Long getExaminstanceId() {
-		return this.examinstanceId;
+	@NotNull
+	public Integer getExamid() {
+		return this.examid;
 	}
 
-	public Studexaminstance setExaminstanceId(Long examinstanceId) {
-		this.examinstanceId = examinstanceId;
+	public Studexaminstance setExamid(Integer examid) {
+		this.examid = examid;
 		return this;
 	}
 
-	public Long getStudentId() {
-		return this.studentId;
+	@NotNull
+	public Integer getUserid() {
+		return this.userid;
 	}
 
-	public Studexaminstance setStudentId(Long studentId) {
-		this.studentId = studentId;
+	public Studexaminstance setUserid(Integer userid) {
+		this.userid = userid;
+		return this;
+	}
+
+	@NotNull
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public Studexaminstance setStatus(Integer status) {
+		this.status = status;
+		return this;
+	}
+
+	@NotNull
+	public Timestamp getDatecreated() {
+		return this.datecreated;
+	}
+
+	public Studexaminstance setDatecreated(Timestamp datecreated) {
+		this.datecreated = datecreated;
+		return this;
+	}
+
+	@NotNull
+	public Timestamp getDateupdated() {
+		return this.dateupdated;
+	}
+
+	public Studexaminstance setDateupdated(Timestamp dateupdated) {
+		this.dateupdated = dateupdated;
 		return this;
 	}
 
@@ -78,8 +125,11 @@ public class Studexaminstance implements Serializable {
 		StringBuilder sb = new StringBuilder("Studexaminstance (");
 
 		sb.append(id);
-		sb.append(", ").append(examinstanceId);
-		sb.append(", ").append(studentId);
+		sb.append(", ").append(examid);
+		sb.append(", ").append(userid);
+		sb.append(", ").append(status);
+		sb.append(", ").append(datecreated);
+		sb.append(", ").append(dateupdated);
 
 		sb.append(")");
 		return sb.toString();

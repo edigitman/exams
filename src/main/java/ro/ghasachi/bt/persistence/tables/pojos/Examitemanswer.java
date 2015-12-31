@@ -7,6 +7,8 @@ package ro.ghasachi.bt.persistence.tables.pojos;
 import java.io.Serializable;
 
 import javax.annotation.Generated;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -22,12 +24,12 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Examitemanswer implements Serializable {
 
-	private static final long serialVersionUID = -2054842482;
+	private static final long serialVersionUID = -851604776;
 
-	private Long    id;
-	private Boolean correct;
+	private Integer id;
+	private Byte    correct;
 	private String  value;
-	private Long    itemId;
+	private Integer itemid;
 
 	public Examitemanswer() {}
 
@@ -35,39 +37,43 @@ public class Examitemanswer implements Serializable {
 		this.id = value.id;
 		this.correct = value.correct;
 		this.value = value.value;
-		this.itemId = value.itemId;
+		this.itemid = value.itemid;
 	}
 
 	public Examitemanswer(
-		Long    id,
-		Boolean correct,
+		Integer id,
+		Byte    correct,
 		String  value,
-		Long    itemId
+		Integer itemid
 	) {
 		this.id = id;
 		this.correct = correct;
 		this.value = value;
-		this.itemId = itemId;
+		this.itemid = itemid;
 	}
 
-	public Long getId() {
+	@NotNull
+	public Integer getId() {
 		return this.id;
 	}
 
-	public Examitemanswer setId(Long id) {
+	public Examitemanswer setId(Integer id) {
 		this.id = id;
 		return this;
 	}
 
-	public Boolean getCorrect() {
+	@NotNull
+	public Byte getCorrect() {
 		return this.correct;
 	}
 
-	public Examitemanswer setCorrect(Boolean correct) {
+	public Examitemanswer setCorrect(Byte correct) {
 		this.correct = correct;
 		return this;
 	}
 
+	@NotNull
+	@Size(max = 100)
 	public String getValue() {
 		return this.value;
 	}
@@ -77,12 +83,13 @@ public class Examitemanswer implements Serializable {
 		return this;
 	}
 
-	public Long getItemId() {
-		return this.itemId;
+	@NotNull
+	public Integer getItemid() {
+		return this.itemid;
 	}
 
-	public Examitemanswer setItemId(Long itemId) {
-		this.itemId = itemId;
+	public Examitemanswer setItemid(Integer itemid) {
+		this.itemid = itemid;
 		return this;
 	}
 
@@ -93,7 +100,7 @@ public class Examitemanswer implements Serializable {
 		sb.append(id);
 		sb.append(", ").append(correct);
 		sb.append(", ").append(value);
-		sb.append(", ").append(itemId);
+		sb.append(", ").append(itemid);
 
 		sb.append(")");
 		return sb.toString();

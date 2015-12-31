@@ -4,11 +4,13 @@
 package ro.ghasachi.bt.persistence.tables.daos;
 
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.Generated;
 
 import org.jooq.Configuration;
+import org.jooq.Record2;
 import org.jooq.impl.DAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,7 +31,7 @@ import ro.ghasachi.bt.persistence.tables.records.UserRecord;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class UserDao extends DAOImpl<UserRecord, ro.ghasachi.bt.persistence.tables.pojos.User, Long> {
+public class UserDao extends DAOImpl<UserRecord, ro.ghasachi.bt.persistence.tables.pojos.User, Record2<Integer, String>> {
 
 	/**
 	 * Create a new UserDao without any configuration
@@ -50,63 +52,70 @@ public class UserDao extends DAOImpl<UserRecord, ro.ghasachi.bt.persistence.tabl
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Long getId(ro.ghasachi.bt.persistence.tables.pojos.User object) {
-		return object.getId();
+	protected Record2<Integer, String> getId(ro.ghasachi.bt.persistence.tables.pojos.User object) {
+		return compositeKeyRecord(object.getId(), object.getEmail());
 	}
 
 	/**
-	 * Fetch records that have <code>ID IN (values)</code>
+	 * Fetch records that have <code>id IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.User> fetchById(Long... values) {
+	public List<ro.ghasachi.bt.persistence.tables.pojos.User> fetchById(Integer... values) {
 		return fetch(User.USER.ID, values);
 	}
 
 	/**
-	 * Fetch a unique record that has <code>ID = value</code>
-	 */
-	public ro.ghasachi.bt.persistence.tables.pojos.User fetchOneById(Long value) {
-		return fetchOne(User.USER.ID, value);
-	}
-
-	/**
-	 * Fetch records that have <code>EMAIL IN (values)</code>
+	 * Fetch records that have <code>email IN (values)</code>
 	 */
 	public List<ro.ghasachi.bt.persistence.tables.pojos.User> fetchByEmail(String... values) {
 		return fetch(User.USER.EMAIL, values);
 	}
 
 	/**
-	 * Fetch records that have <code>ENABLED IN (values)</code>
+	 * Fetch a unique record that has <code>email = value</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.User> fetchByEnabled(Boolean... values) {
-		return fetch(User.USER.ENABLED, values);
+	public ro.ghasachi.bt.persistence.tables.pojos.User fetchOneByEmail(String value) {
+		return fetchOne(User.USER.EMAIL, value);
 	}
 
 	/**
-	 * Fetch records that have <code>LASTNAME IN (values)</code>
-	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.User> fetchByLastname(String... values) {
-		return fetch(User.USER.LASTNAME, values);
-	}
-
-	/**
-	 * Fetch records that have <code>NAME IN (values)</code>
+	 * Fetch records that have <code>name IN (values)</code>
 	 */
 	public List<ro.ghasachi.bt.persistence.tables.pojos.User> fetchByName(String... values) {
 		return fetch(User.USER.NAME, values);
 	}
 
 	/**
-	 * Fetch records that have <code>PASSWORD IN (values)</code>
+	 * Fetch records that have <code>lastname IN (values)</code>
+	 */
+	public List<ro.ghasachi.bt.persistence.tables.pojos.User> fetchByLastname(String... values) {
+		return fetch(User.USER.LASTNAME, values);
+	}
+
+	/**
+	 * Fetch records that have <code>password IN (values)</code>
 	 */
 	public List<ro.ghasachi.bt.persistence.tables.pojos.User> fetchByPassword(String... values) {
 		return fetch(User.USER.PASSWORD, values);
 	}
 
 	/**
-	 * Fetch records that have <code>ROLE IN (values)</code>
+	 * Fetch records that have <code>enabled IN (values)</code>
+	 */
+	public List<ro.ghasachi.bt.persistence.tables.pojos.User> fetchByEnabled(Byte... values) {
+		return fetch(User.USER.ENABLED, values);
+	}
+
+	/**
+	 * Fetch records that have <code>role IN (values)</code>
 	 */
 	public List<ro.ghasachi.bt.persistence.tables.pojos.User> fetchByRole(String... values) {
 		return fetch(User.USER.ROLE, values);
+	}
+
+	/**
+	 * Fetch records that have <code>datecreated IN (values)</code>
+	 */
+	public List<ro.ghasachi.bt.persistence.tables.pojos.User> fetchByDatecreated(Timestamp... values) {
+		return fetch(User.USER.DATECREATED, values);
 	}
 }

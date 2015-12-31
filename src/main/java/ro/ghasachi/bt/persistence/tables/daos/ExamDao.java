@@ -4,6 +4,7 @@
 package ro.ghasachi.bt.persistence.tables.daos;
 
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -29,7 +30,7 @@ import ro.ghasachi.bt.persistence.tables.records.ExamRecord;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class ExamDao extends DAOImpl<ExamRecord, ro.ghasachi.bt.persistence.tables.pojos.Exam, Long> {
+public class ExamDao extends DAOImpl<ExamRecord, ro.ghasachi.bt.persistence.tables.pojos.Exam, Integer> {
 
 	/**
 	 * Create a new ExamDao without any configuration
@@ -50,42 +51,49 @@ public class ExamDao extends DAOImpl<ExamRecord, ro.ghasachi.bt.persistence.tabl
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Long getId(ro.ghasachi.bt.persistence.tables.pojos.Exam object) {
+	protected Integer getId(ro.ghasachi.bt.persistence.tables.pojos.Exam object) {
 		return object.getId();
 	}
 
 	/**
-	 * Fetch records that have <code>ID IN (values)</code>
+	 * Fetch records that have <code>id IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Exam> fetchById(Long... values) {
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Exam> fetchById(Integer... values) {
 		return fetch(Exam.EXAM.ID, values);
 	}
 
 	/**
-	 * Fetch a unique record that has <code>ID = value</code>
+	 * Fetch a unique record that has <code>id = value</code>
 	 */
-	public ro.ghasachi.bt.persistence.tables.pojos.Exam fetchOneById(Long value) {
+	public ro.ghasachi.bt.persistence.tables.pojos.Exam fetchOneById(Integer value) {
 		return fetchOne(Exam.EXAM.ID, value);
 	}
 
 	/**
-	 * Fetch records that have <code>DESCRIPTION IN (values)</code>
-	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Exam> fetchByDescription(String... values) {
-		return fetch(Exam.EXAM.DESCRIPTION, values);
-	}
-
-	/**
-	 * Fetch records that have <code>NAME IN (values)</code>
+	 * Fetch records that have <code>name IN (values)</code>
 	 */
 	public List<ro.ghasachi.bt.persistence.tables.pojos.Exam> fetchByName(String... values) {
 		return fetch(Exam.EXAM.NAME, values);
 	}
 
 	/**
-	 * Fetch records that have <code>PROFESSOR_ID IN (values)</code>
+	 * Fetch records that have <code>userid IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Exam> fetchByProfessorId(Long... values) {
-		return fetch(Exam.EXAM.PROFESSOR_ID, values);
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Exam> fetchByUserid(Integer... values) {
+		return fetch(Exam.EXAM.USERID, values);
+	}
+
+	/**
+	 * Fetch records that have <code>dificulty IN (values)</code>
+	 */
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Exam> fetchByDificulty(String... values) {
+		return fetch(Exam.EXAM.DIFICULTY, values);
+	}
+
+	/**
+	 * Fetch records that have <code>datecreated IN (values)</code>
+	 */
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Exam> fetchByDatecreated(Timestamp... values) {
+		return fetch(Exam.EXAM.DATECREATED, values);
 	}
 }

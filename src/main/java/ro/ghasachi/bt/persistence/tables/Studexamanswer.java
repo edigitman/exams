@@ -4,6 +4,7 @@
 package ro.ghasachi.bt.persistence.tables;
 
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.TableImpl;
 
 import ro.ghasachi.bt.persistence.Keys;
-import ro.ghasachi.bt.persistence.Public;
+import ro.ghasachi.bt.persistence.Mydb;
 import ro.ghasachi.bt.persistence.tables.records.StudexamanswerRecord;
 
 
@@ -35,10 +36,10 @@ import ro.ghasachi.bt.persistence.tables.records.StudexamanswerRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Studexamanswer extends TableImpl<StudexamanswerRecord> {
 
-	private static final long serialVersionUID = -703165032;
+	private static final long serialVersionUID = 1756802183;
 
 	/**
-	 * The reference instance of <code>PUBLIC.STUDEXAMANSWER</code>
+	 * The reference instance of <code>mydb.studexamanswer</code>
 	 */
 	public static final Studexamanswer STUDEXAMANSWER = new Studexamanswer();
 
@@ -51,34 +52,39 @@ public class Studexamanswer extends TableImpl<StudexamanswerRecord> {
 	}
 
 	/**
-	 * The column <code>PUBLIC.STUDEXAMANSWER.ID</code>.
+	 * The column <code>mydb.studexamanswer.id</code>.
 	 */
-	public final TableField<StudexamanswerRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaulted(true), this, "");
+	public final TableField<StudexamanswerRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.STUDEXAMANSWER.VALUE</code>.
+	 * The column <code>mydb.studexamanswer.studexaminst</code>.
 	 */
-	public final TableField<StudexamanswerRecord, String> VALUE = createField("VALUE", org.jooq.impl.SQLDataType.VARCHAR.length(255), this, "");
+	public final TableField<StudexamanswerRecord, Integer> STUDEXAMINST = createField("studexaminst", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.STUDEXAMANSWER.EXAMINSTANCE_ID</code>.
+	 * The column <code>mydb.studexamanswer.examitem</code>.
 	 */
-	public final TableField<StudexamanswerRecord, Long> EXAMINSTANCE_ID = createField("EXAMINSTANCE_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
+	public final TableField<StudexamanswerRecord, Integer> EXAMITEM = createField("examitem", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.STUDEXAMANSWER.ITEM_ID</code>.
+	 * The column <code>mydb.studexamanswer.value</code>.
 	 */
-	public final TableField<StudexamanswerRecord, Long> ITEM_ID = createField("ITEM_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
+	public final TableField<StudexamanswerRecord, String> VALUE = createField("value", org.jooq.impl.SQLDataType.VARCHAR.length(45).nullable(false), this, "");
 
 	/**
-	 * Create a <code>PUBLIC.STUDEXAMANSWER</code> table reference
+	 * The column <code>mydb.studexamanswer.datecreated</code>.
+	 */
+	public final TableField<StudexamanswerRecord, Timestamp> DATECREATED = createField("datecreated", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false).defaulted(true), this, "");
+
+	/**
+	 * Create a <code>mydb.studexamanswer</code> table reference
 	 */
 	public Studexamanswer() {
-		this("STUDEXAMANSWER", null);
+		this("studexamanswer", null);
 	}
 
 	/**
-	 * Create an aliased <code>PUBLIC.STUDEXAMANSWER</code> table reference
+	 * Create an aliased <code>mydb.studexamanswer</code> table reference
 	 */
 	public Studexamanswer(String alias) {
 		this(alias, STUDEXAMANSWER);
@@ -89,14 +95,14 @@ public class Studexamanswer extends TableImpl<StudexamanswerRecord> {
 	}
 
 	private Studexamanswer(String alias, Table<StudexamanswerRecord> aliased, Field<?>[] parameters) {
-		super(alias, Public.PUBLIC, aliased, parameters, "");
+		super(alias, Mydb.MYDB, aliased, parameters, "");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Identity<StudexamanswerRecord, Long> getIdentity() {
+	public Identity<StudexamanswerRecord, Integer> getIdentity() {
 		return Keys.IDENTITY_STUDEXAMANSWER;
 	}
 
@@ -105,7 +111,7 @@ public class Studexamanswer extends TableImpl<StudexamanswerRecord> {
 	 */
 	@Override
 	public UniqueKey<StudexamanswerRecord> getPrimaryKey() {
-		return Keys.CONSTRAINT_24;
+		return Keys.KEY_STUDEXAMANSWER_PRIMARY;
 	}
 
 	/**
@@ -113,7 +119,7 @@ public class Studexamanswer extends TableImpl<StudexamanswerRecord> {
 	 */
 	@Override
 	public List<UniqueKey<StudexamanswerRecord>> getKeys() {
-		return Arrays.<UniqueKey<StudexamanswerRecord>>asList(Keys.CONSTRAINT_24);
+		return Arrays.<UniqueKey<StudexamanswerRecord>>asList(Keys.KEY_STUDEXAMANSWER_PRIMARY);
 	}
 
 	/**
@@ -121,7 +127,7 @@ public class Studexamanswer extends TableImpl<StudexamanswerRecord> {
 	 */
 	@Override
 	public List<ForeignKey<StudexamanswerRecord, ?>> getReferences() {
-		return Arrays.<ForeignKey<StudexamanswerRecord, ?>>asList(Keys.FK_E0CPK002DT9NL0O5JVMKQ02HO, Keys.FK_JDAMVHEKGX8LTM0PAUOBGAKW9);
+		return Arrays.<ForeignKey<StudexamanswerRecord, ?>>asList(Keys.STUDEXAMINST_FK, Keys.EXAMITEM_FK);
 	}
 
 	/**

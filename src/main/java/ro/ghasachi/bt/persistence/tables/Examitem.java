@@ -18,7 +18,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.TableImpl;
 
 import ro.ghasachi.bt.persistence.Keys;
-import ro.ghasachi.bt.persistence.Public;
+import ro.ghasachi.bt.persistence.Mydb;
 import ro.ghasachi.bt.persistence.tables.records.ExamitemRecord;
 
 
@@ -35,10 +35,10 @@ import ro.ghasachi.bt.persistence.tables.records.ExamitemRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Examitem extends TableImpl<ExamitemRecord> {
 
-	private static final long serialVersionUID = 1764784401;
+	private static final long serialVersionUID = 264213161;
 
 	/**
-	 * The reference instance of <code>PUBLIC.EXAMITEM</code>
+	 * The reference instance of <code>mydb.examitem</code>
 	 */
 	public static final Examitem EXAMITEM = new Examitem();
 
@@ -51,44 +51,44 @@ public class Examitem extends TableImpl<ExamitemRecord> {
 	}
 
 	/**
-	 * The column <code>PUBLIC.EXAMITEM.ID</code>.
+	 * The column <code>mydb.examitem.id</code>.
 	 */
-	public final TableField<ExamitemRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaulted(true), this, "");
+	public final TableField<ExamitemRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMITEM.ASSERTION</code>.
+	 * The column <code>mydb.examitem.assertion</code>.
 	 */
-	public final TableField<ExamitemRecord, String> ASSERTION = createField("ASSERTION", org.jooq.impl.SQLDataType.VARCHAR.length(255), this, "");
+	public final TableField<ExamitemRecord, String> ASSERTION = createField("assertion", org.jooq.impl.SQLDataType.VARCHAR.length(200).nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMITEM.DIFICULTY</code>.
+	 * The column <code>mydb.examitem.difficulty</code>.
 	 */
-	public final TableField<ExamitemRecord, Integer> DIFICULTY = createField("DIFICULTY", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+	public final TableField<ExamitemRecord, Integer> DIFFICULTY = createField("difficulty", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMITEM.POINTS</code>.
+	 * The column <code>mydb.examitem.points</code>.
 	 */
-	public final TableField<ExamitemRecord, Integer> POINTS = createField("POINTS", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+	public final TableField<ExamitemRecord, Long> POINTS = createField("points", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMITEM.TYPE</code>.
+	 * The column <code>mydb.examitem.type</code>.
 	 */
-	public final TableField<ExamitemRecord, Integer> TYPE = createField("TYPE", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+	public final TableField<ExamitemRecord, Integer> TYPE = createField("type", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAMITEM.EXAM_ID</code>.
+	 * The column <code>mydb.examitem.examid</code>.
 	 */
-	public final TableField<ExamitemRecord, Long> EXAM_ID = createField("EXAM_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
+	public final TableField<ExamitemRecord, Integer> EXAMID = createField("examid", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
-	 * Create a <code>PUBLIC.EXAMITEM</code> table reference
+	 * Create a <code>mydb.examitem</code> table reference
 	 */
 	public Examitem() {
-		this("EXAMITEM", null);
+		this("examitem", null);
 	}
 
 	/**
-	 * Create an aliased <code>PUBLIC.EXAMITEM</code> table reference
+	 * Create an aliased <code>mydb.examitem</code> table reference
 	 */
 	public Examitem(String alias) {
 		this(alias, EXAMITEM);
@@ -99,14 +99,14 @@ public class Examitem extends TableImpl<ExamitemRecord> {
 	}
 
 	private Examitem(String alias, Table<ExamitemRecord> aliased, Field<?>[] parameters) {
-		super(alias, Public.PUBLIC, aliased, parameters, "");
+		super(alias, Mydb.MYDB, aliased, parameters, "");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Identity<ExamitemRecord, Long> getIdentity() {
+	public Identity<ExamitemRecord, Integer> getIdentity() {
 		return Keys.IDENTITY_EXAMITEM;
 	}
 
@@ -115,7 +115,7 @@ public class Examitem extends TableImpl<ExamitemRecord> {
 	 */
 	@Override
 	public UniqueKey<ExamitemRecord> getPrimaryKey() {
-		return Keys.CONSTRAINT_A2;
+		return Keys.KEY_EXAMITEM_PRIMARY;
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class Examitem extends TableImpl<ExamitemRecord> {
 	 */
 	@Override
 	public List<UniqueKey<ExamitemRecord>> getKeys() {
-		return Arrays.<UniqueKey<ExamitemRecord>>asList(Keys.CONSTRAINT_A2);
+		return Arrays.<UniqueKey<ExamitemRecord>>asList(Keys.KEY_EXAMITEM_PRIMARY);
 	}
 
 	/**
@@ -131,7 +131,7 @@ public class Examitem extends TableImpl<ExamitemRecord> {
 	 */
 	@Override
 	public List<ForeignKey<ExamitemRecord, ?>> getReferences() {
-		return Arrays.<ForeignKey<ExamitemRecord, ?>>asList(Keys.FK_4F05FLQ58R5FXAASB0MD1RK4D);
+		return Arrays.<ForeignKey<ExamitemRecord, ?>>asList(Keys.ITEM_EXAM_FK);
 	}
 
 	/**

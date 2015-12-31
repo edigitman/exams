@@ -19,7 +19,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.TableImpl;
 
 import ro.ghasachi.bt.persistence.Keys;
-import ro.ghasachi.bt.persistence.Public;
+import ro.ghasachi.bt.persistence.Mydb;
 import ro.ghasachi.bt.persistence.tables.records.VerificationtokenRecord;
 
 
@@ -36,10 +36,10 @@ import ro.ghasachi.bt.persistence.tables.records.VerificationtokenRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Verificationtoken extends TableImpl<VerificationtokenRecord> {
 
-	private static final long serialVersionUID = 696251944;
+	private static final long serialVersionUID = -1612671825;
 
 	/**
-	 * The reference instance of <code>PUBLIC.VERIFICATIONTOKEN</code>
+	 * The reference instance of <code>mydb.verificationtoken</code>
 	 */
 	public static final Verificationtoken VERIFICATIONTOKEN = new Verificationtoken();
 
@@ -52,39 +52,44 @@ public class Verificationtoken extends TableImpl<VerificationtokenRecord> {
 	}
 
 	/**
-	 * The column <code>PUBLIC.VERIFICATIONTOKEN.ID</code>.
+	 * The column <code>mydb.verificationtoken.id</code>.
 	 */
-	public final TableField<VerificationtokenRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaulted(true), this, "");
+	public final TableField<VerificationtokenRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.VERIFICATIONTOKEN.EXPIRYDATE</code>.
+	 * The column <code>mydb.verificationtoken.expiredate</code>.
 	 */
-	public final TableField<VerificationtokenRecord, Timestamp> EXPIRYDATE = createField("EXPIRYDATE", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+	public final TableField<VerificationtokenRecord, Timestamp> EXPIREDATE = createField("expiredate", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false).defaulted(true), this, "");
 
 	/**
-	 * The column <code>PUBLIC.VERIFICATIONTOKEN.TOKEN</code>.
+	 * The column <code>mydb.verificationtoken.token</code>.
 	 */
-	public final TableField<VerificationtokenRecord, String> TOKEN = createField("TOKEN", org.jooq.impl.SQLDataType.VARCHAR.length(255), this, "");
+	public final TableField<VerificationtokenRecord, String> TOKEN = createField("token", org.jooq.impl.SQLDataType.VARCHAR.length(37).nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.VERIFICATIONTOKEN.VERIFIED</code>.
+	 * The column <code>mydb.verificationtoken.verified</code>.
 	 */
-	public final TableField<VerificationtokenRecord, Boolean> VERIFIED = createField("VERIFIED", org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+	public final TableField<VerificationtokenRecord, Byte> VERIFIED = createField("verified", org.jooq.impl.SQLDataType.TINYINT, this, "");
 
 	/**
-	 * The column <code>PUBLIC.VERIFICATIONTOKEN.USER_ID</code>.
+	 * The column <code>mydb.verificationtoken.userid</code>.
 	 */
-	public final TableField<VerificationtokenRecord, Long> USER_ID = createField("USER_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+	public final TableField<VerificationtokenRecord, Integer> USERID = createField("userid", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * Create a <code>PUBLIC.VERIFICATIONTOKEN</code> table reference
+	 * The column <code>mydb.verificationtoken.datecreated</code>.
+	 */
+	public final TableField<VerificationtokenRecord, Timestamp> DATECREATED = createField("datecreated", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false).defaulted(true), this, "");
+
+	/**
+	 * Create a <code>mydb.verificationtoken</code> table reference
 	 */
 	public Verificationtoken() {
-		this("VERIFICATIONTOKEN", null);
+		this("verificationtoken", null);
 	}
 
 	/**
-	 * Create an aliased <code>PUBLIC.VERIFICATIONTOKEN</code> table reference
+	 * Create an aliased <code>mydb.verificationtoken</code> table reference
 	 */
 	public Verificationtoken(String alias) {
 		this(alias, VERIFICATIONTOKEN);
@@ -95,14 +100,14 @@ public class Verificationtoken extends TableImpl<VerificationtokenRecord> {
 	}
 
 	private Verificationtoken(String alias, Table<VerificationtokenRecord> aliased, Field<?>[] parameters) {
-		super(alias, Public.PUBLIC, aliased, parameters, "");
+		super(alias, Mydb.MYDB, aliased, parameters, "");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Identity<VerificationtokenRecord, Long> getIdentity() {
+	public Identity<VerificationtokenRecord, Integer> getIdentity() {
 		return Keys.IDENTITY_VERIFICATIONTOKEN;
 	}
 
@@ -111,7 +116,7 @@ public class Verificationtoken extends TableImpl<VerificationtokenRecord> {
 	 */
 	@Override
 	public UniqueKey<VerificationtokenRecord> getPrimaryKey() {
-		return Keys.CONSTRAINT_A;
+		return Keys.KEY_VERIFICATIONTOKEN_PRIMARY;
 	}
 
 	/**
@@ -119,7 +124,7 @@ public class Verificationtoken extends TableImpl<VerificationtokenRecord> {
 	 */
 	@Override
 	public List<UniqueKey<VerificationtokenRecord>> getKeys() {
-		return Arrays.<UniqueKey<VerificationtokenRecord>>asList(Keys.CONSTRAINT_A);
+		return Arrays.<UniqueKey<VerificationtokenRecord>>asList(Keys.KEY_VERIFICATIONTOKEN_PRIMARY);
 	}
 
 	/**
@@ -127,7 +132,7 @@ public class Verificationtoken extends TableImpl<VerificationtokenRecord> {
 	 */
 	@Override
 	public List<ForeignKey<VerificationtokenRecord, ?>> getReferences() {
-		return Arrays.<ForeignKey<VerificationtokenRecord, ?>>asList(Keys.FK_NV1EIS9F8KN7U0R2PFPUJY1Y);
+		return Arrays.<ForeignKey<VerificationtokenRecord, ?>>asList(Keys.USERFK);
 	}
 
 	/**

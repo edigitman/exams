@@ -13,10 +13,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.jolbox.bonecp.BoneCPDataSource;
@@ -26,7 +28,7 @@ import ro.ghasachi.bt.persistence.util.JOOQToSpringExceptionTransformer;
 @Configuration
 @ComponentScan({"ro.ghasachi.bt.persistence"})
 @EnableTransactionManagement
-@PropertySource("classpath:persistence-${envTarget:h2}.properties")
+@PropertySource("classpath:persistence-${envTarget:mysql}.properties")
 public class PersistenceContext {
  
     @Autowired
@@ -94,12 +96,11 @@ public class PersistenceContext {
     public DataSourceInitializer dataSourceInitializer() {
         DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource());
- 
+
+        //TODO add something for first population
 //        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-//        populator.addScript(
-//                new ClassPathResource(env.getRequiredProperty("db.schema.script"))
-//        );
-// 
+//        populator.addScript(new ClassPathResource(env.getRequiredProperty("db.schema.script")));
+//
 //        initializer.setDatabasePopulator(populator);
         return initializer;
     }

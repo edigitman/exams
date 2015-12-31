@@ -4,6 +4,7 @@
 package ro.ghasachi.bt.persistence.tables;
 
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.TableImpl;
 
 import ro.ghasachi.bt.persistence.Keys;
-import ro.ghasachi.bt.persistence.Public;
+import ro.ghasachi.bt.persistence.Mydb;
 import ro.ghasachi.bt.persistence.tables.records.ExamRecord;
 
 
@@ -35,10 +36,10 @@ import ro.ghasachi.bt.persistence.tables.records.ExamRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Exam extends TableImpl<ExamRecord> {
 
-	private static final long serialVersionUID = -1677399911;
+	private static final long serialVersionUID = -112236937;
 
 	/**
-	 * The reference instance of <code>PUBLIC.EXAM</code>
+	 * The reference instance of <code>mydb.exam</code>
 	 */
 	public static final Exam EXAM = new Exam();
 
@@ -51,34 +52,39 @@ public class Exam extends TableImpl<ExamRecord> {
 	}
 
 	/**
-	 * The column <code>PUBLIC.EXAM.ID</code>.
+	 * The column <code>mydb.exam.id</code>.
 	 */
-	public final TableField<ExamRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaulted(true), this, "");
+	public final TableField<ExamRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAM.DESCRIPTION</code>.
+	 * The column <code>mydb.exam.name</code>.
 	 */
-	public final TableField<ExamRecord, String> DESCRIPTION = createField("DESCRIPTION", org.jooq.impl.SQLDataType.VARCHAR.length(255), this, "");
+	public final TableField<ExamRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(100).nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAM.NAME</code>.
+	 * The column <code>mydb.exam.userid</code>.
 	 */
-	public final TableField<ExamRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR.length(255), this, "");
+	public final TableField<ExamRecord, Integer> USERID = createField("userid", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.EXAM.PROFESSOR_ID</code>.
+	 * The column <code>mydb.exam.dificulty</code>.
 	 */
-	public final TableField<ExamRecord, Long> PROFESSOR_ID = createField("PROFESSOR_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
+	public final TableField<ExamRecord, String> DIFICULTY = createField("dificulty", org.jooq.impl.SQLDataType.VARCHAR.length(10), this, "");
 
 	/**
-	 * Create a <code>PUBLIC.EXAM</code> table reference
+	 * The column <code>mydb.exam.datecreated</code>.
+	 */
+	public final TableField<ExamRecord, Timestamp> DATECREATED = createField("datecreated", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false).defaulted(true), this, "");
+
+	/**
+	 * Create a <code>mydb.exam</code> table reference
 	 */
 	public Exam() {
-		this("EXAM", null);
+		this("exam", null);
 	}
 
 	/**
-	 * Create an aliased <code>PUBLIC.EXAM</code> table reference
+	 * Create an aliased <code>mydb.exam</code> table reference
 	 */
 	public Exam(String alias) {
 		this(alias, EXAM);
@@ -89,14 +95,14 @@ public class Exam extends TableImpl<ExamRecord> {
 	}
 
 	private Exam(String alias, Table<ExamRecord> aliased, Field<?>[] parameters) {
-		super(alias, Public.PUBLIC, aliased, parameters, "");
+		super(alias, Mydb.MYDB, aliased, parameters, "");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Identity<ExamRecord, Long> getIdentity() {
+	public Identity<ExamRecord, Integer> getIdentity() {
 		return Keys.IDENTITY_EXAM;
 	}
 
@@ -105,7 +111,7 @@ public class Exam extends TableImpl<ExamRecord> {
 	 */
 	@Override
 	public UniqueKey<ExamRecord> getPrimaryKey() {
-		return Keys.CONSTRAINT_2;
+		return Keys.KEY_EXAM_PRIMARY;
 	}
 
 	/**
@@ -113,7 +119,7 @@ public class Exam extends TableImpl<ExamRecord> {
 	 */
 	@Override
 	public List<UniqueKey<ExamRecord>> getKeys() {
-		return Arrays.<UniqueKey<ExamRecord>>asList(Keys.CONSTRAINT_2);
+		return Arrays.<UniqueKey<ExamRecord>>asList(Keys.KEY_EXAM_PRIMARY);
 	}
 
 	/**
@@ -121,7 +127,7 @@ public class Exam extends TableImpl<ExamRecord> {
 	 */
 	@Override
 	public List<ForeignKey<ExamRecord, ?>> getReferences() {
-		return Arrays.<ForeignKey<ExamRecord, ?>>asList(Keys.FK_A9G3SSSO96F6U0TEMYHDIE6X6);
+		return Arrays.<ForeignKey<ExamRecord, ?>>asList(Keys.PROFID);
 	}
 
 	/**

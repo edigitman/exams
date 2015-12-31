@@ -4,6 +4,7 @@
 package ro.ghasachi.bt.persistence.tables;
 
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.TableImpl;
 
 import ro.ghasachi.bt.persistence.Keys;
-import ro.ghasachi.bt.persistence.Public;
+import ro.ghasachi.bt.persistence.Mydb;
 import ro.ghasachi.bt.persistence.tables.records.UserRecord;
 
 
@@ -34,10 +35,10 @@ import ro.ghasachi.bt.persistence.tables.records.UserRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-	private static final long serialVersionUID = -337901063;
+	private static final long serialVersionUID = 1888068810;
 
 	/**
-	 * The reference instance of <code>PUBLIC.USER</code>
+	 * The reference instance of <code>mydb.user</code>
 	 */
 	public static final User USER = new User();
 
@@ -50,49 +51,54 @@ public class User extends TableImpl<UserRecord> {
 	}
 
 	/**
-	 * The column <code>PUBLIC.USER.ID</code>.
+	 * The column <code>mydb.user.id</code>.
 	 */
-	public final TableField<UserRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaulted(true), this, "");
+	public final TableField<UserRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.USER.EMAIL</code>.
+	 * The column <code>mydb.user.email</code>.
 	 */
-	public final TableField<UserRecord, String> EMAIL = createField("EMAIL", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
+	public final TableField<UserRecord, String> EMAIL = createField("email", org.jooq.impl.SQLDataType.VARCHAR.length(45).nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.USER.ENABLED</code>.
+	 * The column <code>mydb.user.name</code>.
 	 */
-	public final TableField<UserRecord, Boolean> ENABLED = createField("ENABLED", org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+	public final TableField<UserRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(45).nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.USER.LASTNAME</code>.
+	 * The column <code>mydb.user.lastname</code>.
 	 */
-	public final TableField<UserRecord, String> LASTNAME = createField("LASTNAME", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
+	public final TableField<UserRecord, String> LASTNAME = createField("lastname", org.jooq.impl.SQLDataType.VARCHAR.length(45).nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.USER.NAME</code>.
+	 * The column <code>mydb.user.password</code>.
 	 */
-	public final TableField<UserRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
+	public final TableField<UserRecord, String> PASSWORD = createField("password", org.jooq.impl.SQLDataType.VARCHAR.length(45), this, "");
 
 	/**
-	 * The column <code>PUBLIC.USER.PASSWORD</code>.
+	 * The column <code>mydb.user.enabled</code>.
 	 */
-	public final TableField<UserRecord, String> PASSWORD = createField("PASSWORD", org.jooq.impl.SQLDataType.VARCHAR.length(255), this, "");
+	public final TableField<UserRecord, Byte> ENABLED = createField("enabled", org.jooq.impl.SQLDataType.TINYINT.nullable(false), this, "");
 
 	/**
-	 * The column <code>PUBLIC.USER.ROLE</code>.
+	 * The column <code>mydb.user.role</code>.
 	 */
-	public final TableField<UserRecord, String> ROLE = createField("ROLE", org.jooq.impl.SQLDataType.VARCHAR.length(255), this, "");
+	public final TableField<UserRecord, String> ROLE = createField("role", org.jooq.impl.SQLDataType.VARCHAR.length(45).nullable(false), this, "");
 
 	/**
-	 * Create a <code>PUBLIC.USER</code> table reference
+	 * The column <code>mydb.user.datecreated</code>.
+	 */
+	public final TableField<UserRecord, Timestamp> DATECREATED = createField("datecreated", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false).defaulted(true), this, "");
+
+	/**
+	 * Create a <code>mydb.user</code> table reference
 	 */
 	public User() {
-		this("USER", null);
+		this("user", null);
 	}
 
 	/**
-	 * Create an aliased <code>PUBLIC.USER</code> table reference
+	 * Create an aliased <code>mydb.user</code> table reference
 	 */
 	public User(String alias) {
 		this(alias, USER);
@@ -103,14 +109,14 @@ public class User extends TableImpl<UserRecord> {
 	}
 
 	private User(String alias, Table<UserRecord> aliased, Field<?>[] parameters) {
-		super(alias, Public.PUBLIC, aliased, parameters, "");
+		super(alias, Mydb.MYDB, aliased, parameters, "");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Identity<UserRecord, Long> getIdentity() {
+	public Identity<UserRecord, Integer> getIdentity() {
 		return Keys.IDENTITY_USER;
 	}
 
@@ -119,7 +125,7 @@ public class User extends TableImpl<UserRecord> {
 	 */
 	@Override
 	public UniqueKey<UserRecord> getPrimaryKey() {
-		return Keys.CONSTRAINT_27;
+		return Keys.KEY_USER_PRIMARY;
 	}
 
 	/**
@@ -127,7 +133,7 @@ public class User extends TableImpl<UserRecord> {
 	 */
 	@Override
 	public List<UniqueKey<UserRecord>> getKeys() {
-		return Arrays.<UniqueKey<UserRecord>>asList(Keys.CONSTRAINT_27);
+		return Arrays.<UniqueKey<UserRecord>>asList(Keys.KEY_USER_PRIMARY, Keys.KEY_USER_EMAIL_UNIQUE);
 	}
 
 	/**

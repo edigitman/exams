@@ -29,7 +29,7 @@ import ro.ghasachi.bt.persistence.tables.records.ExamitemRecord;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class ExamitemDao extends DAOImpl<ExamitemRecord, ro.ghasachi.bt.persistence.tables.pojos.Examitem, Long> {
+public class ExamitemDao extends DAOImpl<ExamitemRecord, ro.ghasachi.bt.persistence.tables.pojos.Examitem, Integer> {
 
 	/**
 	 * Create a new ExamitemDao without any configuration
@@ -50,56 +50,56 @@ public class ExamitemDao extends DAOImpl<ExamitemRecord, ro.ghasachi.bt.persiste
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Long getId(ro.ghasachi.bt.persistence.tables.pojos.Examitem object) {
+	protected Integer getId(ro.ghasachi.bt.persistence.tables.pojos.Examitem object) {
 		return object.getId();
 	}
 
 	/**
-	 * Fetch records that have <code>ID IN (values)</code>
+	 * Fetch records that have <code>id IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitem> fetchById(Long... values) {
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitem> fetchById(Integer... values) {
 		return fetch(Examitem.EXAMITEM.ID, values);
 	}
 
 	/**
-	 * Fetch a unique record that has <code>ID = value</code>
+	 * Fetch a unique record that has <code>id = value</code>
 	 */
-	public ro.ghasachi.bt.persistence.tables.pojos.Examitem fetchOneById(Long value) {
+	public ro.ghasachi.bt.persistence.tables.pojos.Examitem fetchOneById(Integer value) {
 		return fetchOne(Examitem.EXAMITEM.ID, value);
 	}
 
 	/**
-	 * Fetch records that have <code>ASSERTION IN (values)</code>
+	 * Fetch records that have <code>assertion IN (values)</code>
 	 */
 	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitem> fetchByAssertion(String... values) {
 		return fetch(Examitem.EXAMITEM.ASSERTION, values);
 	}
 
 	/**
-	 * Fetch records that have <code>DIFICULTY IN (values)</code>
+	 * Fetch records that have <code>difficulty IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitem> fetchByDificulty(Integer... values) {
-		return fetch(Examitem.EXAMITEM.DIFICULTY, values);
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitem> fetchByDifficulty(Integer... values) {
+		return fetch(Examitem.EXAMITEM.DIFFICULTY, values);
 	}
 
 	/**
-	 * Fetch records that have <code>POINTS IN (values)</code>
+	 * Fetch records that have <code>points IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitem> fetchByPoints(Integer... values) {
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitem> fetchByPoints(Long... values) {
 		return fetch(Examitem.EXAMITEM.POINTS, values);
 	}
 
 	/**
-	 * Fetch records that have <code>TYPE IN (values)</code>
+	 * Fetch records that have <code>type IN (values)</code>
 	 */
 	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitem> fetchByType(Integer... values) {
 		return fetch(Examitem.EXAMITEM.TYPE, values);
 	}
 
 	/**
-	 * Fetch records that have <code>EXAM_ID IN (values)</code>
+	 * Fetch records that have <code>examid IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitem> fetchByExamId(Long... values) {
-		return fetch(Examitem.EXAMITEM.EXAM_ID, values);
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examitem> fetchByExamid(Integer... values) {
+		return fetch(Examitem.EXAMITEM.EXAMID, values);
 	}
 }

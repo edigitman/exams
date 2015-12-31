@@ -30,7 +30,7 @@ import ro.ghasachi.bt.persistence.tables.records.ExaminstanceRecord;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class ExaminstanceDao extends DAOImpl<ExaminstanceRecord, ro.ghasachi.bt.persistence.tables.pojos.Examinstance, Long> {
+public class ExaminstanceDao extends DAOImpl<ExaminstanceRecord, ro.ghasachi.bt.persistence.tables.pojos.Examinstance, Integer> {
 
 	/**
 	 * Create a new ExaminstanceDao without any configuration
@@ -51,63 +51,77 @@ public class ExaminstanceDao extends DAOImpl<ExaminstanceRecord, ro.ghasachi.bt.
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Long getId(ro.ghasachi.bt.persistence.tables.pojos.Examinstance object) {
+	protected Integer getId(ro.ghasachi.bt.persistence.tables.pojos.Examinstance object) {
 		return object.getId();
 	}
 
 	/**
-	 * Fetch records that have <code>ID IN (values)</code>
+	 * Fetch records that have <code>id IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchById(Long... values) {
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchById(Integer... values) {
 		return fetch(Examinstance.EXAMINSTANCE.ID, values);
 	}
 
 	/**
-	 * Fetch a unique record that has <code>ID = value</code>
+	 * Fetch a unique record that has <code>id = value</code>
 	 */
-	public ro.ghasachi.bt.persistence.tables.pojos.Examinstance fetchOneById(Long value) {
+	public ro.ghasachi.bt.persistence.tables.pojos.Examinstance fetchOneById(Integer value) {
 		return fetchOne(Examinstance.EXAMINSTANCE.ID, value);
 	}
 
 	/**
-	 * Fetch records that have <code>ENDDATE IN (values)</code>
-	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchByEnddate(Timestamp... values) {
-		return fetch(Examinstance.EXAMINSTANCE.ENDDATE, values);
-	}
-
-	/**
-	 * Fetch records that have <code>NAME IN (values)</code>
+	 * Fetch records that have <code>name IN (values)</code>
 	 */
 	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchByName(String... values) {
 		return fetch(Examinstance.EXAMINSTANCE.NAME, values);
 	}
 
 	/**
-	 * Fetch records that have <code>STARTDATE IN (values)</code>
-	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchByStartdate(Timestamp... values) {
-		return fetch(Examinstance.EXAMINSTANCE.STARTDATE, values);
-	}
-
-	/**
-	 * Fetch records that have <code>STATUS IN (values)</code>
+	 * Fetch records that have <code>status IN (values)</code>
 	 */
 	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchByStatus(Integer... values) {
 		return fetch(Examinstance.EXAMINSTANCE.STATUS, values);
 	}
 
 	/**
-	 * Fetch records that have <code>EXAM_ID IN (values)</code>
+	 * Fetch records that have <code>startdate IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchByExamId(Long... values) {
-		return fetch(Examinstance.EXAMINSTANCE.EXAM_ID, values);
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchByStartdate(Timestamp... values) {
+		return fetch(Examinstance.EXAMINSTANCE.STARTDATE, values);
 	}
 
 	/**
-	 * Fetch records that have <code>GROUP_ID IN (values)</code>
+	 * Fetch records that have <code>enddate IN (values)</code>
 	 */
-	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchByGroupId(Long... values) {
-		return fetch(Examinstance.EXAMINSTANCE.GROUP_ID, values);
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchByEnddate(Timestamp... values) {
+		return fetch(Examinstance.EXAMINSTANCE.ENDDATE, values);
+	}
+
+	/**
+	 * Fetch records that have <code>points IN (values)</code>
+	 */
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchByPoints(Long... values) {
+		return fetch(Examinstance.EXAMINSTANCE.POINTS, values);
+	}
+
+	/**
+	 * Fetch records that have <code>examid IN (values)</code>
+	 */
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchByExamid(Integer... values) {
+		return fetch(Examinstance.EXAMINSTANCE.EXAMID, values);
+	}
+
+	/**
+	 * Fetch records that have <code>egroupid IN (values)</code>
+	 */
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchByEgroupid(Integer... values) {
+		return fetch(Examinstance.EXAMINSTANCE.EGROUPID, values);
+	}
+
+	/**
+	 * Fetch records that have <code>datecreated IN (values)</code>
+	 */
+	public List<ro.ghasachi.bt.persistence.tables.pojos.Examinstance> fetchByDatecreated(Timestamp... values) {
+		return fetch(Examinstance.EXAMINSTANCE.DATECREATED, values);
 	}
 }

@@ -14,220 +14,267 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import ro.ghasachi.bt.web.middleware.ProfService;
-import ro.ghasachi.bt.web.vo.ExamGroupVO;
-import ro.ghasachi.bt.web.vo.ExamInstanceVO;
-import ro.ghasachi.bt.web.vo.ExamItemAnswerVO;
-import ro.ghasachi.bt.web.vo.ExamItemVO;
-import ro.ghasachi.bt.web.vo.ExamVO;
+import ro.ghasachi.bt.middleware.ProfService;
+import ro.ghasachi.bt.web.util.ControllerInputValidator;
+import ro.ghasachi.bt.web.vo.*;
 
 @Controller
 @RequestMapping(value = "/prof")
 public class ProfController {
 
-	private final static Logger log = LoggerFactory.getLogger(ProfController.class);
-	
-	@Autowired
-	private ProfService service ;
+    private final static Logger log = LoggerFactory.getLogger(ProfController.class);
 
-	// EXAM resources
+    @Autowired
+    private ProfService service;
 
-	/**
-	 * Create a new exam associated to a prof, only if current user is prof
-	 * 
-	 * @param examVO
-	 */
-	@RequestMapping(value = "exam", consumes = "application/json", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void createExam(@RequestBody ExamVO examVO) {
-		log.debug("create exam: " + examVO );
-	}
+    // EXAM resources
 
-	/**
-	 * Update the exam only is the exam was created by this user.
-	 * 
-	 * @param examVO
-	 */
-	@RequestMapping(value = "exam", consumes = "application/json", method = RequestMethod.PUT)
-	@ResponseBody
-	public ExamVO updateExam(@RequestBody ExamVO examVO) {
-		log.debug("update Exam: " + examVO );
-		return null;
-	}
-	
-	/**
-	 * Get one exam by id. Only if current user is prof and has created is or
-	 * current user is stud and is in a group from one of the exam instances.
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "exam/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public ExamVO getExam(@PathVariable("id") Long id) {
-		log.debug("get Exam: " + id );
-		return null;
-	}
-	
-	@RequestMapping(value = "exam", method = RequestMethod.GET)
-	@ResponseBody
-	public List<ExamVO> getAllExam() {
-		log.debug("get All Exam");
-		return null;
-	}
+    /**
+     * Create a new exam associated to a prof, only if current user is prof
+     *
+     * @param examVO exam instance
+     */
+    @RequestMapping(value = "exam", consumes = "application/json", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void createExam(@RequestBody ExamVO examVO) {
+        log.debug("create exam: " + examVO);
 
-	// EXAM INSTANCE resources
-	
-	@RequestMapping(value = "examInstance", consumes = "application/json", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void createExamInstance(@RequestBody ExamInstanceVO examInstanceVO){	
-		log.debug("createExamInstance :" + examInstanceVO);
-	}
-	
-	@RequestMapping(value = "examInstance", consumes = "application/json", method = RequestMethod.PUT)
-	@ResponseBody
-	public ExamInstanceVO updateExamInstance(@RequestBody ExamInstanceVO examInstanceVO){
-		log.debug("updateExamInstance :" + examInstanceVO);
-		return examInstanceVO;
-	}
-	
-	@RequestMapping(value = "examInstance/{id}/{state}", method = RequestMethod.PUT)
-	@ResponseBody
-	public ExamInstanceVO startExamInstance(@PathVariable("id") Long id, @PathVariable("state") String state){
-		log.debug("startExamInstance :" + id + ", state:" + state);
-		return new ExamInstanceVO();
-	}
-	
-	@RequestMapping(value = "examInstance/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public ExamInstanceVO getExamInstance(@PathVariable("id") Long id){
-		log.debug("getExamInstance :" + id);
-		return new ExamInstanceVO();
-	}
-	
-	@RequestMapping(value = "examInstance", method = RequestMethod.GET)
-	@ResponseBody
-	public List<ExamInstanceVO> getAllExamInstance(){
-		log.debug("getAllExamInstance");
-		return null;
-	}
-	
-	
-	// EXAM ITEM resources
+        ControllerInputValidator.validateCreateExam(examVO);
 
-	/**
-	 * Create one exam item for one exam
-	 * 
-	 * @param examItemVO
-	 */
-	@RequestMapping(value = "examItem", consumes = "application/json", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void createExamItem(@RequestBody ExamItemVO examItemVO) {
-		log.debug("createExamItem: " + examItemVO);
-	}
+        service.createExam(examVO);
+    }
 
-	/**
-	 * Update and examItem
-	 * 
-	 * @param examItemVO
-	 * @return
-	 */
-	@RequestMapping(value = "examItem", consumes = "application/json", method = RequestMethod.PUT)
-	@ResponseBody
-	public ExamItemVO updateExamItem(@RequestBody ExamItemVO examItemVO) {
-		log.debug("updateExamItem: " + examItemVO);
-		return examItemVO;
-	}
+    /**
+     * Update the exam only is the exam was created by this user.
+     *
+     * @param examVO exam instance
+     */
+    @RequestMapping(value = "exam", consumes = "application/json", method = RequestMethod.PUT)
+    @ResponseBody
+    public ExamVO updateExam(@RequestBody ExamVO examVO) {
+        log.debug("update Exam: " + examVO);
 
-	/**
-	 * Get one exam item
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "examItem/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public ExamItemVO getExamItem(@PathVariable("id") Long id) {
-		log.debug("getExamItem: " + id);
-		return new ExamItemVO();
-	}
+        ControllerInputValidator.validateCreateExam(examVO);
 
-	/**
-	 * Delete one exam item
-	 * 
-	 * @param id
-	 */
-	@RequestMapping(value = "examItem/{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void deleteOneExamItem(@PathVariable("id") Long id) {
-		log.debug("deleteOneExamItem: " + id);
-	}
+        return service.updateExam(examVO);
+    }
 
-	// EXAM GROUP resources
-	
-	@RequestMapping(value = "examGroup", consumes = "application/json", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void createExamGroup(@RequestBody ExamGroupVO examGroupVO) {
-		log.debug("createExamGroup: " + examGroupVO);
-	}
-	
-	@RequestMapping(value = "examGroup", consumes = "application/json", method = RequestMethod.PUT)
-	@ResponseBody
-	public ExamGroupVO updateExamGroup(@RequestBody ExamGroupVO examGroupVO) {
-		log.debug("updateExamGroup: " + examGroupVO);
-		return examGroupVO;
-	}
-	
-	@RequestMapping(value = "examGroup/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public ExamGroupVO getExamGroup(@PathVariable("id") Long id) {
-		log.debug("getExamGroup: " + id);
-		return new ExamGroupVO();
-	}
-	
-	@RequestMapping(value = "examGroup", method = RequestMethod.GET)
-	@ResponseBody
-	public List<ExamGroupVO> getAllExamGroup() {
-		log.debug("getAllExamGroup: ");
-		return null;
-	}
-	
-	@RequestMapping(value = "examGroup/{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void deleteExamGroup(@PathVariable("id") Long id) {		
-		log.debug("deleteExamGroup: " + id);
-	}
-	
-	// EXAM ITEM ANSWER resources
+    /**
+     * Get one exam by id. Only if current user is prof and has created is or
+     * current user is stud and is in a group from one of the exam instances.
+     *
+     * @return exam instance
+     */
+    @RequestMapping(value = "exam/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ExamVO getExam(@PathVariable("id") Long id) {
+        log.debug("get Exam: " + id);
 
-	/**
-	 * Create one answer for one item
-	 * 
-	 * @param examItemVO
-	 */
-	@RequestMapping(value = "examItemAnswer", consumes = "application/json", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void createExamItemAnswer(@RequestBody ExamItemAnswerVO examItemVO) {
-		log.debug("createExamItemAnswer: " + examItemVO);
-	}
+        return service.getOneExam(id);
+    }
 
-	@RequestMapping(value = "examItemAnswer", consumes = "application/json", method = RequestMethod.PUT)
-	@ResponseBody
-	public ExamItemAnswerVO updateExamItemAnswer(@RequestBody ExamItemAnswerVO examItemVO) {
-		log.debug("updateExamItemAnswer: " + examItemVO);
-		return null;
-	}
+    @RequestMapping(value = "exam", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ExamVO> getAllExam() {
+        log.debug("get All Exam");
+        return service.getExams();
+    }
 
-	@RequestMapping(value = "examItemAnswer/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public ExamItemAnswerVO getExamItemAnswer(@PathVariable("id") Long id) {
-		log.debug("getExamItemAnswer: " + id);
-		return null;
-	}
+    // EXAM INSTANCE resources
 
-	@RequestMapping(value = "examItemAnswer/{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK)
-	public ExamItemAnswerVO deleteExamItemAnswer(@PathVariable("id") Long id) {
-		log.debug("deleteExamItemAnswer: " + id);
-		return null;
-	}	
+    @RequestMapping(value = "examInstance", consumes = "application/json", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void createExamInstance(@RequestBody ExamInstanceVO examInstanceVO) {
+        log.debug("createExamInstance :" + examInstanceVO);
+
+        service.createExamInstance(examInstanceVO);
+    }
+
+    @RequestMapping(value = "examInstance", consumes = "application/json", method = RequestMethod.PUT)
+    @ResponseBody
+    public ExamInstanceVO updateExamInstance(@RequestBody ExamInstanceVO examInstanceVO) {
+        log.debug("updateExamInstance :" + examInstanceVO);
+
+        return service.updateExamInstance(examInstanceVO);
+    }
+
+    @RequestMapping(value = "examInstance/{id}/{state}", method = RequestMethod.PUT)
+    @ResponseBody
+    public ExamInstanceVO startExamInstance(@PathVariable("id") int id, @PathVariable("state") String state) {
+        log.debug("startExamInstance :" + id + ", state:" + state);
+        return service.setStateOnExamInstance(id, state);
+    }
+
+    @RequestMapping(value = "examInstance/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ExamInstanceVO getExamInstance(@PathVariable("id") int id) {
+        log.debug("getExamInstance :" + id);
+
+        return service.getOneExamInstance(id);
+    }
+
+    @RequestMapping(value = "examInstance", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ExamInstanceVO> getAllExamInstance() {
+        log.debug("getAllExamInstance");
+        return service.getExamInstances();
+    }
+
+
+    // EXAM ITEM resources
+
+    /**
+     * Create one exam item for one exam
+     *
+     * @param examItemVO exam item
+     */
+    @RequestMapping(value = "examItem", consumes = "application/json", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void createExamItem(@RequestBody ExamItemVO examItemVO) {
+        log.debug("createExamItem: " + examItemVO);
+
+        ControllerInputValidator.validateCreateExamItem(examItemVO);
+
+        service.createExamItem(examItemVO);
+    }
+
+    /**
+     * Update and examItem
+     *
+     * @param examItemVO changes exam item with id oof the old one
+     * @return exam item
+     */
+    @RequestMapping(value = "examItem", consumes = "application/json", method = RequestMethod.PUT)
+    @ResponseBody
+    public ExamItemVO updateExamItem(@RequestBody ExamItemVO examItemVO) {
+        log.debug("updateExamItem: " + examItemVO);
+
+        ControllerInputValidator.validateCreateExamItem(examItemVO);
+
+        return service.updateExamItem(examItemVO);
+    }
+
+    /**
+     * Get one exam item
+     *
+     * @param id id of exam item
+     * @return exam item instance
+     */
+    @RequestMapping(value = "examItem/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ExamItemVO getExamItem(@PathVariable("id") int id) {
+        log.debug("getOneExamItem: " + id);
+
+        return service.getOneExamItem(id);
+    }
+
+    /**
+     * Delete one exam item
+     *
+     * @param id exam item id
+     */
+    @RequestMapping(value = "examItem/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteOneExamItem(@PathVariable("id") Long id) {
+        log.debug("deleteOneExamItem: " + id);
+        service.removeExamItem(id);
+    }
+
+    // EXAM GROUP resources
+
+    @RequestMapping(value = "examGroup", consumes = "application/json", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void createExamGroup(@RequestBody ExamGroupVO examGroupVO) {
+        log.debug("createExamGroup: " + examGroupVO);
+
+        ControllerInputValidator.validateCreateexamGroup(examGroupVO);
+        service.createExamGroup(examGroupVO);
+
+    }
+
+    @RequestMapping(value = "examGroup", consumes = "application/json", method = RequestMethod.PUT)
+    @ResponseBody
+    public ExamGroupVO updateExamGroup(@RequestBody ExamGroupVO examGroupVO) {
+        log.debug("updateExamGroup: " + examGroupVO);
+        ControllerInputValidator.validateCreateexamGroup(examGroupVO);
+        return service.updateExamGroup(examGroupVO);
+    }
+
+    @RequestMapping(value = "examGroup/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ExamGroupVO getExamGroup(@PathVariable("id") Integer id) {
+        log.debug("getExamGroup: " + id);
+
+        return service.getOneExamGroup(id);
+    }
+
+    @RequestMapping(value = "examGroup", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ExamGroupVO> getAllExamGroup() {
+        log.debug("getAllExamGroup: ");
+
+        return service.getExamGroups();
+    }
+
+    @RequestMapping(value = "examGroup/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteExamGroup(@PathVariable("id") Long id) {
+        log.debug("deleteExamGroup: " + id);
+
+        service.removeExamGroup(id);
+    }
+
+    @RequestMapping(value = "examGroupStud", consumes = "application/json", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void addStudToExamGroup(@RequestBody ExamGroupStudVO examGroupStudVO) {
+        log.debug("addStudToExamGroup: " + examGroupStudVO);
+
+        ControllerInputValidator.validateAddStudToGroup(examGroupStudVO);
+        service.addStudFromGroup(examGroupStudVO);
+    }
+
+    @RequestMapping(value = "examGroupStud", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void removeStudToExamGroup(@RequestBody ExamGroupStudVO examGroupStudVO) {
+        log.debug("removeStudToExamGroup: " + examGroupStudVO);
+        ControllerInputValidator.validateAddStudToGroup(examGroupStudVO);
+        service.removeStudFromGroup(examGroupStudVO);
+    }
+
+    // EXAM ITEM ANSWER resources
+
+    /**
+     * Create one answer for one item
+     *
+     * @param examItemAnswerVO answer representation
+     */
+    @RequestMapping(value = "examItemAnswer", consumes = "application/json", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void createExamItemAnswer(@RequestBody ExamItemAnswerVO examItemAnswerVO) {
+        log.debug("createExamItemAnswer: " + examItemAnswerVO);
+        ControllerInputValidator.validateProfAnswer(examItemAnswerVO);
+        service.createExamItemAnswer(examItemAnswerVO);
+    }
+
+    @RequestMapping(value = "examItemAnswer", consumes = "application/json", method = RequestMethod.PUT)
+    @ResponseBody
+    public ExamItemAnswerVO updateExamItemAnswer(@RequestBody ExamItemAnswerVO examItemAnswerVO) {
+        log.debug("updateExamItemAnswer: " + examItemAnswerVO);
+        ControllerInputValidator.validateProfAnswer(examItemAnswerVO);
+        return service.updateExamItemAnswer(examItemAnswerVO);
+    }
+
+    @RequestMapping(value = "examItemAnswer/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ExamItemAnswerVO getExamItemAnswer(@PathVariable("id") Long id) {
+        log.debug("getExamItemAnswer: " + id);
+        return service.getOneExamItemAnswer(id);
+    }
+
+    @RequestMapping(value = "examItemAnswer/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteExamItemAnswer(@PathVariable("id") int id) {
+        log.debug("deleteExamItemAnswer: " + id);
+        service.removeExamItemAnswer(id);
+    }
 }

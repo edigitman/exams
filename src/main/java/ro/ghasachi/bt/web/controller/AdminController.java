@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import org.springframework.web.context.request.WebRequest;
 import ro.ghasachi.bt.persistence.tables.pojos.User;
-import ro.ghasachi.bt.web.middleware.AdminService;
+import ro.ghasachi.bt.middleware.AdminService;
 import ro.ghasachi.bt.web.util.ControllerInputValidator;
 import ro.ghasachi.bt.web.vo.UserVO;
 
@@ -33,17 +34,18 @@ public class AdminController {
     
     @RequestMapping(value="user",consumes = "application/json", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void createUser(@RequestBody UserVO userVO){
+    public void createUser(@RequestBody UserVO userVO, WebRequest request){
     	log.debug("createUser:" + userVO);
-    	
+    	String appUrl = request.getContextPath();
+
     	ControllerInputValidator.validateCreateUser(userVO);
     	
-    	service.createNewUser(userVO);
+    	service.createNewUser(userVO, appUrl);
     }
 
     @RequestMapping(value="user", consumes = "application/json", method = RequestMethod.PUT)
     @ResponseBody
-    public User editUser(@RequestBody UserVO userVO){
+    public UserVO editUser(@RequestBody UserVO userVO){
     	log.debug("editUser:" + userVO);
     	
     	ControllerInputValidator.validateCreateUser(userVO);
@@ -53,7 +55,7 @@ public class AdminController {
     
     @RequestMapping(value="user", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getAllUsers(){
+    public List<UserVO> getAllUsers(){
     	log.debug("getAllUsers");
     	
     	
