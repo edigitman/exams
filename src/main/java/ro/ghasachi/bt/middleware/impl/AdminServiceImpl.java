@@ -35,7 +35,6 @@ public class AdminServiceImpl implements AdminService {
         List<UserVO> result = new ArrayList<>();
 
         List<User> users = userDao.findAll();
-
         for(User user : users){
             result.add(new UserVO(user));
         }

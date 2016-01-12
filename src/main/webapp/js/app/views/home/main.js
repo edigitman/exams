@@ -6,15 +6,19 @@ define([
   'text!templates/home/main.html'
 ], function($, _, Backbone, homeMainTemplate){
 
-	var homeMainView = Backbone.View.extend({
-		el: $('#page'),
-		initialize: function(){},
+	return Backbone.View.extend({
+		id: "home-view",
+		template : _.template(homeMainTemplate),
+		initialize: function(){
+
+			$("#page").html(this.el);
+			this.render();
+		},
 		render: function(){
+			var self = this;
 			var data = {};
 			//We can add some data to the template here if needed
-			this.$el.html( _.template( homeMainTemplate, data ) );
+			self.$el.html(self.template(data));
 		}
 	});
-
-  return new homeMainView;
 });
