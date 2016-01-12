@@ -1,5 +1,5 @@
 define([
-  'jquery',
+  '../../../libs/jquery/jquery-min',
   'underscore',
   'backbone',
   //Main template for this view
@@ -11,7 +11,7 @@ define([
 		template : _.template(homeMainTemplate),
 		initialize: function(){
 
-			$("#page").html(this.el);
+			$("#loadingSplash").html(this.el);
 			this.render();
 		},
 		render: function(){
