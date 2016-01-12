@@ -11,7 +11,7 @@ define([
         template : _.template(homeSecondTemplate),
         initialize: function(){
 
-            $("#page").html(this.el);
+            $("#loadingSplash").html(this.el);
             this.render();
         },
         render: function(){

@@ -1,6 +1,33 @@
 body {
+  background: #252830;
   margin: 0;
   padding: 0;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+nav.navbar {
+  background: #1a1c22;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border: none;
+}
+
+#loginPage .modal-body input {
+  margin-bottom: 10px;
+}
+#loginPage .modal-body input[type="text"] {
+  margin-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+#loginPage .modal-body input[type="password"] {
+  margin-top: -1px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
