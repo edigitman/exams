@@ -1,5 +1,5 @@
 define([
-  '../../../libs/jquery/jquery-min',
+	'jquery',
   'underscore',
   'backbone',
   //Main template for this view
