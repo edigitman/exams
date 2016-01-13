@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `role` VARCHAR(45) NOT NULL COMMENT '',
   `datecreated` TIMESTAMP NULL COMMENT '',
   PRIMARY KEY (`id`, `email`)  COMMENT '')
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -43,11 +43,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`verificationToken` (
   `datecreated` TIMESTAMP NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
   CONSTRAINT `userFK`
-    FOREIGN KEY (`userid`)
-    REFERENCES `mydb`.`user` (`id`)
+  FOREIGN KEY (`userid`)
+  REFERENCES `mydb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 CREATE INDEX `userFK_idx` ON `mydb`.`verificationToken` (`userid` ASC)  COMMENT '';
 
@@ -63,11 +63,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`exam` (
   `datecreated` TIMESTAMP NULL DEFAULT now() COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
   CONSTRAINT `profid`
-    FOREIGN KEY (`userid`)
-    REFERENCES `mydb`.`user` (`id`)
+  FOREIGN KEY (`userid`)
+  REFERENCES `mydb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 CREATE INDEX `profid_idx` ON `mydb`.`exam` (`userid` ASC)  COMMENT '';
 
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`egroup` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `name` VARCHAR(45) NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '')
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -96,16 +96,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`examinstance` (
   `egroupid` INT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
   CONSTRAINT `exam-fk`
-    FOREIGN KEY (`examid`)
-    REFERENCES `mydb`.`exam` (`id`)
+  FOREIGN KEY (`examid`)
+  REFERENCES `mydb`.`exam` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `egroup-fk`
-    FOREIGN KEY (`egroupid`)
-    REFERENCES `mydb`.`egroup` (`id`)
+  FOREIGN KEY (`egroupid`)
+  REFERENCES `mydb`.`egroup` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 CREATE INDEX `exam-fk_idx` ON `mydb`.`examinstance` (`examid` ASC)  COMMENT '';
 
@@ -121,16 +121,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`egroupuser` (
   `userid` INT NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
   CONSTRAINT `user-fk`
-    FOREIGN KEY (`userid`)
-    REFERENCES `mydb`.`user` (`id`)
+  FOREIGN KEY (`userid`)
+  REFERENCES `mydb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `group-fk`
-    FOREIGN KEY (`groupid`)
-    REFERENCES `mydb`.`egroup` (`id`)
+  FOREIGN KEY (`groupid`)
+  REFERENCES `mydb`.`egroup` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 CREATE INDEX `user-fk_idx` ON `mydb`.`egroupuser` (`userid` ASC)  COMMENT '';
 
@@ -148,12 +148,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`examitem` (
   `type` INT NULL COMMENT '',
   `examid` INT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
-  CONSTRAINT `exam-fk`
-    FOREIGN KEY (`examid`)
-    REFERENCES `mydb`.`exam` (`id`)
+  CONSTRAINT `examitem-exam-fk`
+  FOREIGN KEY (`examid`)
+  REFERENCES `mydb`.`exam` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 CREATE INDEX `exam-fk_idx` ON `mydb`.`examitem` (`examid` ASC)  COMMENT '';
 
@@ -167,12 +167,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`examitemanswer` (
   `value` VARCHAR(100) NOT NULL COMMENT '',
   `itemid` INT NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
-  CONSTRAINT `item-fk`
-    FOREIGN KEY (`itemid`)
-    REFERENCES `mydb`.`examitem` (`id`)
+  CONSTRAINT `eia-item-fk`
+  FOREIGN KEY (`itemid`)
+  REFERENCES `mydb`.`examitem` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 CREATE INDEX `item-fk_idx` ON `mydb`.`examitemanswer` (`itemid` ASC)  COMMENT '';
 
@@ -185,20 +185,20 @@ CREATE TABLE IF NOT EXISTS `mydb`.`studexaminstance` (
   `examid` INT NOT NULL COMMENT '',
   `userid` INT NOT NULL COMMENT '',
   `status` INT NOT NULL COMMENT '',
-  `datecreated` TIMESTAMP NOT NULL COMMENT '',
-  `dateupdated` TIMESTAMP NOT NULL COMMENT '',
+  `datecreated` TIMESTAMP NOT NULL DEFAULT NOW() COMMENT '',
+  `dateupdated` TIMESTAMP NOT NULL DEFAULT NOW() COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
-  CONSTRAINT `exam-fk`
-    FOREIGN KEY (`examid`)
-    REFERENCES `mydb`.`examinstance` (`id`)
+  CONSTRAINT `sei-exam-fk`
+  FOREIGN KEY (`examid`)
+  REFERENCES `mydb`.`examinstance` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `user-fk`
-    FOREIGN KEY (`userid`)
-    REFERENCES `mydb`.`user` (`id`)
+  CONSTRAINT `sei-user-fk`
+  FOREIGN KEY (`userid`)
+  REFERENCES `mydb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 CREATE INDEX `user-fk_idx` ON `mydb`.`studexaminstance` (`userid` ASC)  COMMENT '';
 
@@ -216,16 +216,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`studexamanswer` (
   `datecreated` TIMESTAMP NOT NULL DEFAULT now() COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
   CONSTRAINT `studexaminst-fk`
-    FOREIGN KEY (`studexaminst`)
-    REFERENCES `mydb`.`studexaminstance` (`id`)
+  FOREIGN KEY (`studexaminst`)
+  REFERENCES `mydb`.`studexaminstance` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `examitem-fk`
-    FOREIGN KEY (`examitem`)
-    REFERENCES `mydb`.`examitem` (`id`)
+  FOREIGN KEY (`examitem`)
+  REFERENCES `mydb`.`examitem` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 CREATE INDEX `studexaminst-fk_idx` ON `mydb`.`studexamanswer` (`studexaminst` ASC)  COMMENT '';
 
