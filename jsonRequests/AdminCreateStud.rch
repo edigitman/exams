@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rest-client version="3.2.2">
+    <request>
+        <http-version>1.1</http-version>
+        <http-follow-redirects />
+        <URL>http://localhost:8080/api/admin/user</URL>
+        <method>POST</method>
+        <auth>
+            <basic>
+                <username>admin@mail.com</username>
+                <password>c2VjcmV0</password>
+            </basic>
+        </auth>
+        <body>
+            <string content-type="application/json" charset="UTF-8">{
+	"name":"stud1",
+	"lastName" : "lastname",
+	"email" : "stud@mail.com",
+	"role" : "ROLE_STUD"
+}</string>
+        </body>
+    </request>
+</rest-client>
